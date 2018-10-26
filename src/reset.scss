@@ -1,0 +1,35 @@
+/*重置样式*/
+html, body, ul,a, span ,li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img, div ,header,nav,footer,figure,figcaption,section,main,input{ 
+    margin:0; 
+    padding:0; 
+    box-sizing:border-box;
+    background-size: contain;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: normal
+}
+fieldset, img { 
+    border:none; 
+}
+input{
+    outline: none;
+    border:0;
+}
+em, b, strong, i{ 
+    font-style:normal; 
+    font-weight:normal; 
+}
+ul, ol { 
+    list-style:none; 
+} 
+a { 
+    color:black; 
+    text-decoration:none; 
+}
+html,body{
+    height:100%;
+}
+body{
+    display:flex;
+    flex-direction:column;
+}
