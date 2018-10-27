@@ -1,10 +1,14 @@
 <template>
 <div class="tl-list-main-right">
   <div class="tl-list-main-right-title">
-    <span>———</span>女装<span>———</span>
+    <span>———</span>{{categorieName}}<span>———</span>
   </div>
   <div class="tl-list-main-right-item">
-    <Item v-for="categorie in categories" :key="categorie.id" :categorie="categorie"></Item>
+    <Item
+      v-for="categorie in categories"
+      :key="categorie.id"
+      :categorie="categorie"
+      ></Item>
   </div>
 </div>
 </template>
@@ -14,12 +18,9 @@ import Item from './Item'
 
 export default {
   name: 'ListRight',
-  props: ['categories'],
+  props: ['categories', 'categorieName'],
   components: {
     Item
-  },
-  mounted () {
-    console.log(this.categories)
   }
 }
 </script>

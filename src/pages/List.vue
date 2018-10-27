@@ -1,29 +1,30 @@
 <template>
-  <div class="tl-list-body">
-    <list-header></list-header>
+  <div class="tl-list-body body">
+    <list-header :goback="true"></list-header>
+    <!-- <list-nav></list-nav> -->
     <div class="tl-list-main">
-      <list-left @gitsubItem="gitsubItem"></list-left>
-      <list-right :categories="categories"></list-right>
+      <list-item v-for="item in itemList" :key='item.id' :item="item"></list-item>
     </div>
   </div>
 </template>
 
 <script>
 import ListHeader from '../components/List/ListHeader'
-import ListLeft from '../components/List/ListLeft'
-import ListRight from '../components/List/ListRight'
-import { getItem } from '@/axios'
+import ListNav from '@/components/List/ListNav'
+import ListItem from '../components/List/ListItem'
+import { getItem, getList } from '@/axios'
 
 export default {
   name: 'list',
   components: {
     ListHeader,
-    ListLeft,
-    ListRight
+    ListNav,
+    ListItem
   },
   data () {
     return {
-      categories: []
+      categories: [],
+      itemList: []
     }
   },
   methods: {
@@ -34,20 +35,26 @@ export default {
         }
       }).catch(err => console.error(err))
     }
+  },
+  mounted () {
+    getList(this.$route.params.id).then(resp => {
+      if (resp.data.code === 200) {
+        this.itemList = resp.data.data.items.list
+      }
+    }).catch(err => console.error(err))
   }
 }
 </script>
 
 <style lang='scss' scoped>
-$main-color: #f8e372;
-.tl-list-body {
-  height:100%;
-  display: flex;
-  flex-direction:column;
+.tl-list-body{
   .tl-list-main{
     flex:1;
-    // overflow-y: auto;
     display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    justify-content:space-between;
+
   }
 }
 </style>

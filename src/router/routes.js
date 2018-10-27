@@ -1,10 +1,11 @@
 import {
   Detail,
   Home,
-  List,
+  Kind,
   Cart,
   Mine,
-  Login
+  Login,
+  List
 } from '@/pages'
 
 const routes = [
@@ -18,11 +19,15 @@ const routes = [
     text: '首页',
     isTabbar: true
   }, {
-    path: '/list',
-    name: 'list',
+    path: '/kind',
+    name: 'kind',
     text: '分类',
-    component: List,
+    component: Kind,
     isTabbar: true
+  }, {
+    path: '/list/:id',
+    name: 'list',
+    component: List
   }, {
     path: '/cart',
     name: 'cart',
@@ -36,7 +41,7 @@ const routes = [
     text: '我的',
     isTabbar: true
   }, {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'detail',
     component: Detail
   }, {

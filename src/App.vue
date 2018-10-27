@@ -3,7 +3,7 @@
     <div class="lt-body">
        <router-view/>
     </div>
-    <tabbar></tabbar>
+    <tabbar v-if="$route.name!=='detail'&&$route.name!=='list'"></tabbar>
   </div>
 </template>
 
@@ -13,6 +13,9 @@ export default {
   name: 'App',
   components: {
     Tabbar
+  },
+  mounted () {
+    console.log(this)
   }
 }
 </script>

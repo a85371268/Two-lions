@@ -1,7 +1,11 @@
 <template>
 <div class="tl-list-main-left">
   <ul>
-    <li v-for="item in kindsList" :key="item.id" @click="$emit('gitsubItem',item.id)">{{item.name}}</li>
+    <li
+    v-for="item in kindsList"
+    :key="item.id"
+    @click="gitsubItem(item.id)"
+    :class="newId===item.id?'atcive':''">{{item.name}}</li>
   </ul>
 </div>
 </template>
@@ -13,7 +17,8 @@ export default {
   name: 'ListLeft',
   data () {
     return {
-      kindsList: []
+      kindsList: [],
+      newId: 2
     }
   },
   mounted () {
@@ -22,6 +27,12 @@ export default {
         this.kindsList = resp.data.data.list.filter(item => item.name !== '今日推荐')
       }
     })
+  },
+  methods: {
+    gitsubItem (id) {
+      this.$emit('gitsubItem', id)
+      this.newId = id
+    }
   }
 }
 </script>
@@ -41,6 +52,9 @@ export default {
       font-size: 12px;
       color:#666;
       text-align: center;
+    }
+    .atcive{
+      color:#f8e372;
     }
   }
 }

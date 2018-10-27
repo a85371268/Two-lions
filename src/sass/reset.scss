@@ -30,7 +30,11 @@ a {
 html,body{
     height:100%;
 }
-body{
+.body{
     display:flex;
     flex-direction:column;
+}
+.body{
+    display: flex;
+    flex-direction: column;
 }
