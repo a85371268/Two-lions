@@ -1,30 +1,28 @@
 <template>
   <div class="tl-list-body body">
     <list-header :goback="true"></list-header>
-    <list-nav></list-nav>
+    <!-- <list-nav></list-nav> -->
     <div class="tl-list-main">
-      <list-left @gitsubItem="gitsubItem"></list-left>
-      <list-right :categories="categories"></list-right>
+      <list-item v-for="item in itemList" :key='item.id' :item="item"></list-item>
     </div>
   </div>
 </template>
 
 <script>
 import ListHeader from '../components/List/ListHeader'
-import ListLeft from '../components/List/ListLeft'
-import ListRight from '../components/List/ListRight'
+import ListItem from '../components/List/ListItem'
 import { getItem, getList } from '@/axios'
 
 export default {
   name: 'list',
   components: {
     ListHeader,
-    ListLeft,
-    ListRight
+    ListItem
   },
   data () {
     return {
-      categories: []
+      categories: [],
+      itemList: []
     }
   },
   methods: {

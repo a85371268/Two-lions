@@ -12,6 +12,7 @@ export default {
   methods: {
     goToDetail () {
       const id = this.categorie.url.split('?')[1].split('=')[1]
+      console.log(id)
       this.$router.push(`/list/${id}`)
     }
   }
