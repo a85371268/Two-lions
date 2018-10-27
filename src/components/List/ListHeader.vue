@@ -1,5 +1,6 @@
 <template>
   <div class="tl-list-header">
+    <span v-if="goback"><i class="icon iconfont icon-fanhui" @click="goBack"></i></span>
     <div class="tl-list-seach">
       <i class="icon iconfont icon-seach"></i>
       <span>套装 女</span>
@@ -9,7 +10,14 @@
 
 <script>
 export default {
-  name: 'ListHeader'
+  name: 'ListHeader',
+  props: ['goback'],
+  methods: {
+    goBack () {
+      this.$router.back()
+      console.log(this)
+    }
+  }
 }
 </script>
 
@@ -19,11 +27,16 @@ $main-color: #f8e372;
     height:40px;
     background-color: $main-color;
     position: relative;
+    >span{
+      color:#666;
+      margin-left:5px;
+      line-height: 40px;
+    }
     >.tl-list-seach {
       background-color: #fff;
       height:25px;
       border-radius: 5px;
-      width:90%;
+      width:80%;
       position: absolute;
       top:0;
       left: 0;

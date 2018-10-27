@@ -1,10 +1,9 @@
 <template>
   <div class="tl-list-body body">
-    <list-header :goback="true"></list-header>
-    <list-nav></list-nav>
+    <list-header></list-header>
     <div class="tl-list-main">
       <list-left @gitsubItem="gitsubItem"></list-left>
-      <list-right :categories="categories"></list-right>
+      <list-right :categories="categories" :categorieName='categorieName'></list-right>
     </div>
   </div>
 </template>
@@ -13,10 +12,10 @@
 import ListHeader from '../components/List/ListHeader'
 import ListLeft from '../components/List/ListLeft'
 import ListRight from '../components/List/ListRight'
-import { getItem, getList } from '@/axios'
+import { getItem } from '@/axios'
 
 export default {
-  name: 'list',
+  name: 'kind',
   components: {
     ListHeader,
     ListLeft,
@@ -24,24 +23,26 @@ export default {
   },
   data () {
     return {
-      categories: []
-    }
-  },
-  methods: {
-    gitsubItem (id) {
-      getItem(id).then(resp => {
-        if (resp.data.code === 200) {
-          this.categories = resp.data.data.categories
-        }
-      }).catch(err => console.error(err))
+      categories: [],
+      categorieName: '',
+      id: 0
     }
   },
   mounted () {
-    getList(this.$route.params.id).then(resp => {
-      if (resp.data.code === 200) {
-        this.itemList = resp.data.data.items.list
-      }
-    }).catch(err => console.error(err))
+    this.geData(2)
+  },
+  methods: {
+    gitsubItem (id) {
+      this.geData(id)
+    },
+    geData (id) {
+      getItem(id).then(resp => {
+        if (resp.data.code === 200) {
+          this.categories = resp.data.data.categories
+          this.categorieName = resp.data.data.category.name
+        }
+      }).catch(err => console.error(err))
+    }
   }
 }
 </script>
@@ -50,16 +51,10 @@ export default {
 $main-color: #f8e372;
 .tl-list-body {
   height:100%;
-  display: flex;
-  flex-direction:column;
   .tl-list-main{
     flex:1;
     // overflow-y: auto;
     display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    justify-content:space-between;
-
   }
 }
 </style>
