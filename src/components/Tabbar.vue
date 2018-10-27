@@ -7,7 +7,9 @@
       :to='route.path'
     >
       <div>
-        <i :class="`iconfont icon-${route.name}-normal`"></i>
+        <i
+        :class="$route.path===route.path?`icon iconfont icon-${route.name}-active`:`icon iconfont icon-${route.name}-normal`"
+        ></i>
         <span>{{route.text}}</span>
       </div>
     </router-link>
@@ -35,8 +37,7 @@ export default {
     left: 0;
     right: 0;
     background: white;
-    border-top:1px solid #666;
-    opacity: .5;
+    border-top:1px solid #999;
     >li {
       flex: 1;
       text-align: center;
@@ -45,19 +46,23 @@ export default {
         display: flex;
         flex-direction: column;
         >i{
-          font-size: 25px;
-          padding-top: 7px;
-          color: #432915;
+          font-size: 20px;
+          padding-top: 5px;
+          color: #999;
         }
         >span{
           font-size: 12px;
-          color: #b2b2b2;
+          color: #999;
+          margin-top:5px;
         }
       }
     }
     .router-link-exact-active,.router-link-active{
       >div{
         >i{
+          color:#f8e372;
+        }
+        >span{
           color:#f8e372;
         }
       }
