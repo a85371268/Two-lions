@@ -1,6 +1,8 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="app" class="app">
+    <div class="lt-body">
+       <router-view/>
+    </div>
     <tabbar></tabbar>
   </div>
 </template>
@@ -15,8 +17,14 @@ export default {
 }
 </script>
 
-<style>
-#app {
-
+<style lang='scss'>
+.app {
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  .lt-body{
+    flex:1;
+    overflow-y: auto;
+  }
 }
 </style>
