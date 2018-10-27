@@ -29,14 +29,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+  $main-color: #f8e372;
   .tl-tabbar{
     display: flex;
     height: 52px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: white;
     border-top:1px solid #999;
     >li {
       flex: 1;
@@ -60,10 +56,10 @@ export default {
     .router-link-exact-active,.router-link-active{
       >div{
         >i{
-          color:#f8e372;
+          color:$main-color;
         }
         >span{
-          color:#f8e372;
+          color:$main-color;
         }
       }
     }
