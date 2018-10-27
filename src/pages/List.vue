@@ -10,6 +10,7 @@
 
 <script>
 import ListHeader from '../components/List/ListHeader'
+import ListNav from '@/components/List/ListNav'
 import ListItem from '../components/List/ListItem'
 import { getItem, getList } from '@/axios'
 
@@ -17,6 +18,7 @@ export default {
   name: 'list',
   components: {
     ListHeader,
+    ListNav,
     ListItem
   },
   data () {
@@ -45,14 +47,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-$main-color: #f8e372;
-.tl-list-body {
-  height:100%;
-  display: flex;
-  flex-direction:column;
+.tl-list-body{
   .tl-list-main{
     flex:1;
-    // overflow-y: auto;
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;

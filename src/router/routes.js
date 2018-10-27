@@ -1,11 +1,11 @@
 import {
   Detail,
   Home,
-  List,
+  Kind,
   Cart,
   Mine,
   Login,
-  Kind
+  List
 } from '@/pages'
 
 const routes = [

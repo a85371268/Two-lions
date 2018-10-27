@@ -13,6 +13,9 @@ export default {
   name: 'App',
   components: {
     Tabbar
+  },
+  mounted () {
+    console.log(this)
   }
 }
 </script>

@@ -19,7 +19,8 @@ export const getBanner = () => {
   return ajax.get(`/api/tab/1?start=0`)
 }
 export const getList = (id) => {
-  return ajax.get(`/api/category/${id}/items`)
+  console.log(id)
+  return ajax.get(`/api/category/${id}/items?start=0`)
 }
 export const getDetail = (id) => {
   return ajax.get(`/api/detail?id=${id}&normal=1&sa=`)

@@ -24,8 +24,7 @@ export default {
   data () {
     return {
       categories: [],
-      categorieName: '',
-      id: 0
+      categorieName: ''
     }
   },
   mounted () {

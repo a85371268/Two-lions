@@ -1,17 +1,17 @@
 const Detail = () => import('@/pages/Detail')
 const Home = () => import('@/pages/Home')
-const List = () => import('@/pages/List')
+const Kind = () => import('@/pages/Kind')
 const Cart = () => import('@/pages/Cart')
 const Mine = () => import('@/pages/Mine')
 const Login = () => import('@/pages/Login')
-const Kind = () => import('@/pages/Kind')
+const List = () => import('@/pages/List')
 
 export {
   Detail,
   Home,
-  List,
+  Kind,
   Cart,
   Mine,
   Login,
-  Kind
+  List
 }

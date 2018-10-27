@@ -5,8 +5,7 @@
     v-for="item in kindsList"
     :key="item.id"
     @click="gitsubItem(item.id)"
-    :class="nowId===item.id?'active':''"
-    >{{item.name}}</li>
+    :class="newId===item.id?'atcive':''">{{item.name}}</li>
   </ul>
 </div>
 </template>
@@ -19,7 +18,7 @@ export default {
   data () {
     return {
       kindsList: [],
-      nowId: 2
+      newId: 2
     }
   },
   mounted () {
@@ -32,7 +31,7 @@ export default {
   methods: {
     gitsubItem (id) {
       this.$emit('gitsubItem', id)
-      this.nowId = id
+      this.newId = id
     }
   }
 }
@@ -54,7 +53,7 @@ export default {
       color:#666;
       text-align: center;
     }
-    .active{
+    .atcive{
       color:#f8e372;
     }
   }

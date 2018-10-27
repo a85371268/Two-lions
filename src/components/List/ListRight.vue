@@ -5,10 +5,10 @@
   </div>
   <div class="tl-list-main-right-item">
     <Item
-    v-for="categorie in categories"
-    :key="categorie.id"
-    :categorie="categorie"
-    ></Item>
+      v-for="categorie in categories"
+      :key="categorie.id"
+      :categorie="categorie"
+      ></Item>
   </div>
 </div>
 </template>

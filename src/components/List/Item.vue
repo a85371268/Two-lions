@@ -1,5 +1,5 @@
 <template>
-  <dl @click="goToDetail()">
+  <dl @click="goToDetail">
     <dt><img :src="categorie.imageUrl" alt=""></dt>
     <dd>{{categorie.title}}</dd>
   </dl>
@@ -11,8 +11,7 @@ export default {
   props: ['categorie'],
   methods: {
     goToDetail () {
-      const id = this.categorie.url.split('?')[1].split('=')[1]
-      console.log(id)
+      const id = this.categorie.url.split('=')[1]
       this.$router.push(`/list/${id}`)
     }
   }
