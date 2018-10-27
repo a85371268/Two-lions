@@ -8,3 +8,6 @@ export const getKindList = () => {
 export const getItem = (id) => {
   return ajax.get(`/api/tab/${id}`)
 }
+export const getBanner = () => {
+  return ajax.get(`/api/tab/1?start=0`)
+}
