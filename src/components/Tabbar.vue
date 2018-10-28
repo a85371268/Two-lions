@@ -32,24 +32,26 @@ export default {
   $main-color: #f8e372;
   .tl-tabbar{
     display: flex;
-    height: 52px;
+    height: 100%;
     border-top:1px solid #999;
     >li {
       flex: 1;
       text-align: center;
       >div{
-        height: 52px;
+        height: 100%;
         display: flex;
         flex-direction: column;
         >i{
           font-size: 20px;
-          padding-top: 5px;
+          height: 34px;
+          line-height: 34px;
           color: #999;
         }
         >span{
           font-size: 12px;
+          height: 16px;
+          line-height: 16px;
           color: #999;
-          margin-top:5px;
         }
       }
     }
