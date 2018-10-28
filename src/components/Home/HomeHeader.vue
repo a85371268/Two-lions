@@ -12,7 +12,12 @@
 
 <script>
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  data () {
+    return {
+      selected: '1'
+    }
+  }
 }
 </script>
 

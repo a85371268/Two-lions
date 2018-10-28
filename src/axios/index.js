@@ -15,8 +15,11 @@ export const getKindList = () => {
 export const getItem = (id) => {
   return ajax.get(`/api/tab/${id}`)
 }
-export const getBanner = () => {
+export const getHomeData = () => {
   return ajax.get(`/api/tab/1?start=0`)
+}
+export const getHomeTabbar = () => {
+  return ajax.get(`/api/tabs?sa=`)
 }
 export const getList = (id) => {
   console.log(id)
