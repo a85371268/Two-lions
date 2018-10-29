@@ -20,11 +20,14 @@ export const getKindList = () => {
 export const getItem = (id) => {
   return ajax.get(`/api/tab/${id}`)
 }
-export const getHomeData = () => {
-  return ajax.get(`/api/tab/1?start=0`)
+export const getHomeData = (id) => {
+  return ajax.get(`/api/tab/${id}?start=0`)
 }
 export const getHomeTabbar = () => {
   return ajax.get(`/api/tabs?sa=`)
+}
+export const getHomeMore = (id) => {
+  return ajax.get(`/api/tab/1/feeds?start=${id}`)
 }
 export const getList = (id) => {
   return ajax.get(`/api/category/${id}/items?start=0`)
