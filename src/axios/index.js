@@ -32,3 +32,6 @@ export const getList = (id) => {
 export const getDetail = (id) => {
   return ajax.get(`/api/detail?id=${id}&normal=1&sa=`)
 }
+export const getSearch = (text) => {
+  return ajax.get(`/api/search?word=${text}&start=0&sort=0`)
+}

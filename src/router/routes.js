@@ -5,7 +5,8 @@ import {
   Cart,
   Mine,
   Login,
-  List
+  List,
+  Search
 } from '@/pages'
 
 const routes = [
@@ -48,6 +49,10 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  }, {
+    path: '/search',
+    name: 'search',
+    component: Search
   }
 ]
 

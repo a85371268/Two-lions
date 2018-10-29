@@ -5,6 +5,7 @@ const Cart = () => import('@/pages/Cart')
 const Mine = () => import('@/pages/Mine')
 const Login = () => import('@/pages/Login')
 const List = () => import('@/pages/List')
+const Search = () => import('@/pages/Search')
 
 export {
   Detail,
@@ -13,5 +14,6 @@ export {
   Cart,
   Mine,
   Login,
-  List
+  List,
+  Search
 }

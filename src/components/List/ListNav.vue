@@ -17,6 +17,7 @@ export default {
   display: flex;
   height:40px;
   line-height: 40px;
+  background-color: #fff;
   box-shadow: 1px 2px 5px hsla(0,11%,79%,.5);
   .tl-list-nav-item{
     flex:1;

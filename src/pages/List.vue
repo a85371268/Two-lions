@@ -1,7 +1,7 @@
 <template>
   <div class="tl-list-body body">
     <list-header :goback="true"></list-header>
-    <!-- <list-nav></list-nav> -->
+    <list-nav></list-nav>
     <div class="tl-list-main">
       <list-item v-for="item in itemList" :key='item.id' :item="item"></list-item>
     </div>
@@ -36,11 +36,17 @@ export default {
     }
   },
   mounted () {
-    this.$http.getList(this.$route.params.id).then(resp => {
-      if (resp.data.code === 200) {
-        this.itemList = resp.data.data.items.list
-      }
-    }).catch(err => console.error(err))
+    if (!this.$route.query.word) {
+      this.$http.getList(this.$route.params.id).then(resp => {
+        if (resp.data.code === 200) {
+          this.itemList = resp.data.data.items.list
+        }
+      }).catch(err => console.error(err))
+    } else {
+      this.$http.getSearch(this.$route.query.word).then(resp => {
+        this.itemList = resp.data.data.list
+      }).catch(err => console.error(err))
+    }
   }
 }
 </script>
