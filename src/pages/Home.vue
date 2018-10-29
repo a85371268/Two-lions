@@ -3,15 +3,28 @@
     <div class="tl-home-body-headerWrapper">
       <home-header></home-header>
       <div class="tl-home-body-tabbar">
-        <mt-navbar v-model="selected">
-          <mt-tab-item
-            v-for="tab in tabs"
-            :key="tab.id"
-            :id="tab.id.toString()"
-          >
-            {{tab.name}}
-          </mt-tab-item>
-        </mt-navbar>
+        <div class="tl-home-body-tabbar-wrapper">
+          <mt-navbar v-model="selected">
+            <mt-tab-item
+              v-for="tab in tabs"
+              :key="tab.id"
+              :id="tab.id.toString()"
+            >
+              {{tab.name}}
+            </mt-tab-item>
+          </mt-navbar>
+        </div>
+        <span class="navbar-btn" @click="showClassify=!showClassify"></span>
+        <div class="navbar-title" v-show="showClassify">全部分类</div>
+        <div class="navbar" v-show="showClassify">
+          <classify-item
+            v-for="item in tabs"
+            :key="item.id"
+            :tabs="item"
+            v-model="selected"
+            :id="item.id"
+          ></classify-item>
+        </div>
       </div>
     </div>
 
@@ -72,7 +85,7 @@ import HomeGrids from '@/components/Home/HomeGrids'
 import ProductList from '@/components/List/ListItem'
 import ListTitle from '@/components/Home/HomeListTitle'
 import HomeRankings from '@/components/Home/HomeRankings'
-import ClassifyItem from '@/components/List/Item'
+import ClassifyItem from '@/components/Home/HomeClassifyItem'
 // import { getHomeData } from '@/axios'
 
 export default {
@@ -97,7 +110,8 @@ export default {
       nextIndex: 0,
       isEnd: false,
       loading: false,
-      categorie: []
+      categorie: [],
+      showClassify: false
     }
   },
   updated () {
@@ -152,24 +166,60 @@ export default {
     &-tabbar{
       width: 100%;
       background: #f8e372;
-      overflow: auto;
-      .mint-navbar{
-        background: #f8e372;
-        height: 40px;
-        .mint-tab-item{
-          color: #666;
-          white-space:nowrap;
-          margin-left: 15px;
-          margin-right: 15px;
-          float: left;
-          &-label{
-            font-size: 14px !important;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      &-wrapper{
+        width: 90%;
+        overflow: auto;
+        .mint-navbar{
+          background: #f8e372;
+          height: 40px;
+          .mint-tab-item{
+            color: #666;
+            white-space:nowrap;
+            margin-left: 15px;
+            margin-right: 15px;
+            float: left;
+            &-label{
+              font-size: 14px !important;
+            }
+          }
+          .is-selected{
+            border-bottom:5px solid black;
+            color: black;
           }
         }
-        .is-selected{
-          border-bottom:5px solid black;
-          color: black;
-        }
+      }
+      .navbar-btn{
+        display: inline-block;
+        background:url(//img6.lukou.com/js/img/goto-search.479cb6c.png) center center no-repeat;
+        background-size: 50% 50%;
+        flex: 1;
+        z-index: 1;
+      }
+      .navbar-title{
+        width: 92%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: white;
+        text-align: center;
+        line-height: 40px;
+        background: #f8e372;
+        font-size: 14px;
+        color: #666;
+      }
+      .navbar{
+        width: 100%;
+        background: white;
+        position: absolute;
+        top: 40px;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        flex-wrap: wrap;
       }
     }
     &-main{
