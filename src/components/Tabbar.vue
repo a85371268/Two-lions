@@ -10,6 +10,7 @@
         <i
         :class="$route.path===route.path?`icon iconfont icon-${route.name}-active`:`icon iconfont icon-${route.name}-normal`"
         ></i>
+        <badge :count="allCount" v-if="route.name==='cart' && allCount>0"></badge>
         <span>{{route.text}}</span>
       </div>
     </router-link>
@@ -18,12 +19,20 @@
 
 <script>
 import routes from '@/router/routes'
+import Badge from '@/components/base/badge'
+import { mapGetters } from 'vuex'
 export default {
   name: 'tabbar',
+  components: {
+    Badge
+  },
   data () {
     return {
       routes: routes.filter(route => route.isTabbar === true)
     }
+  },
+  computed: {
+    ...mapGetters(['allCount'])
   }
 }
 </script>
@@ -37,6 +46,7 @@ export default {
     >li {
       flex: 1;
       text-align: center;
+      position: relative;
       >div{
         height: 100%;
         display: flex;
