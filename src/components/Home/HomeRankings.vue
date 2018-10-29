@@ -10,6 +10,7 @@
           class="rankings-swipper-wrapper-item"
           v-for="rank in rankings"
           :key="rank.id"
+          @click="goDetail(rank.id)"
         >
           <div class="item-img">
             <img
@@ -42,7 +43,12 @@
 <script>
 export default {
   name: 'homerankings',
-  props: ['rankings']
+  props: ['rankings'],
+  methods: {
+    goDetail (id) {
+      this.$router.push(`/detail/${id}`)
+    }
+  }
 }
 </script>
 

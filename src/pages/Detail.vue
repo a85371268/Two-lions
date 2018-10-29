@@ -7,7 +7,7 @@
         </div>
         <mt-swipe :auto="4000">
           <mt-swipe-item v-for="slider in sliderList" :key="slider.id">
-            <img :src="slider.url" alt="">
+            <img :src="slider.url">
           </mt-swipe-item>
         </mt-swipe>
       </div>
@@ -44,7 +44,8 @@
     </div>
     <div class="tl-detail-btn">
       <div class="tl-detail-btn-cart">
-        <i class="icon iconfont icon-cart-normal"></i>
+        <i class="icon iconfont icon-cart-normal" @click="goCart"></i>
+        <badge :count="allCount" v-if="allCount>0"></badge>
       </div>
       <button @click="addCart(proInfo)">加入购物车</button>
       <button>立即购买</button>
@@ -53,7 +54,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
+import Badge from '@/components/base/badge'
 
 export default {
   name: 'detail',
@@ -74,6 +76,12 @@ export default {
         img: ''
       }
     }
+  },
+  components: {
+    Badge
+  },
+  computed: {
+    ...mapGetters(['allCount'])
   },
   mounted () {
     this.$http.getDetail(this.$route.params.id).then(resp => {
@@ -98,6 +106,9 @@ export default {
   methods: {
     goBack () {
       this.$router.back()
+    },
+    goCart () {
+      this.$router.push('/cart')
     },
     ...mapMutations(['addCart'])
   }
@@ -206,6 +217,14 @@ export default {
   .tl-detail-btn{
     display: flex;
     height:40px;
+    .tl-detail-btn-cart{
+      width:80px;
+      border-top:1px solid #999;
+      line-height: 40px;
+      font-size: 23px!important;
+      position: relative;
+      text-align: center;
+    }
     button{
       width:50%;
       height:40px;
