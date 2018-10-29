@@ -21,13 +21,7 @@
     <div class="tl-home-body-main">
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">
-          <div class="swiper">
-            <mt-swipe :auto="4000">
-              <mt-swipe-item v-for="imgs in banners" :key = "imgs.id">
-                <img :src="imgs.imageUrl">
-              </mt-swipe-item>
-            </mt-swipe>
-          </div>
+          <swipper :banners="banners" />
           <div class="grids">
             <div class="grid" v-for="item in grids" :key="item.id">
               <div class="grid-msg">
@@ -68,13 +62,29 @@
                 </div>
                 <div class="rankings-swipper-wrapper-item">
                   <div class="item-img">
-                    <a href="/list" class="seeMore">
-                      <p class="text">更多商品</p>
-                      <p class="sub-text">see-more</p>
+                    <a href="http://localhost:8080/#/kind" class="seeMore">
+                      <span class="text">更多商品</span>
+                      <br/>
+                      <span class="sub-text">see-more</span>
                     </a>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="lists">
+            <div class="list-title">
+              <span class="line"></span>
+              <span class="text">小编精选，每日更新</span>
+              <span class="line"></span>
+            </div>
+            <div class="list-wrapper">
+              <ul
+                v-infinite-scroll="loadMore"
+                infinite-scroll-disabled="loading"
+                infinite-scroll-distance="10">
+                <li v-for="item in list" :key="item">{{ item }}</li>
+              </ul>
             </div>
           </div>
         </mt-tab-container-item>
@@ -97,10 +107,13 @@
 
 <script>
 import HomeHeader from '../components/Home/HomeHeader'
+import Swipper from '@/components/Home/HomeSwipper'
+import { getHomeData } from '@/axios'
 export default {
   name: 'home',
   components: {
-    HomeHeader
+    HomeHeader,
+    Swipper
   },
   data () {
     return {
@@ -108,7 +121,8 @@ export default {
       tabs: [],
       banners: [],
       grids: [],
-      rankings: []
+      rankings: [],
+      list: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
   },
   mounted () {
@@ -122,7 +136,7 @@ export default {
     //   })
     //   .catch(err => console.error(err))
 
-    this.$http.getHomeData()
+    getHomeData()
       .then(resp => {
         if (resp.data.code === 200) {
           const data = resp.data.data
@@ -132,12 +146,25 @@ export default {
         }
       })
       .catch(err => console.error(err))
+  },
+  methods: {
+    loadMore () {
+      this.loading = true
+      setTimeout(() => {
+        let last = this.list[this.list.length - 1]
+        for (let i = 1; i <= 10; i++) {
+          this.list.push(last + i)
+        }
+        this.loading = false
+      }, 2500)
+    }
   }
 }
 </script>
 
 <style lang='scss' scoped>
   .tl-home-body{
+    height: 100%;
     display: flex;
     flex-direction: column;
     background: #f5f5f5;
@@ -170,28 +197,6 @@ export default {
       overflow: auto;
       .mint-tab-container{
         &-wrap{
-          .swiper{
-            height: 0px;
-            width: 100%;
-            padding-top: 37%;
-            position: relative;
-            .mint-swipe{
-              height: 100%;
-              width: 100%;
-              position: absolute;
-              left: 0;
-              top: 0;
-            }
-            .mint-swipe-item{
-              position: absolute;
-              top: 0;
-              left: 0;
-              height: 100%;
-              >img{
-                width: 100%;
-              }
-            }
-          }
           .grids{
             width: 100%;
             height: 145px;
@@ -259,7 +264,6 @@ export default {
             }
             &-swipper{
               height: 163px;
-              border-bottom: 1px solid;
               &-wrapper{
                 width: 100%;
                 height: 100%;
@@ -270,12 +274,29 @@ export default {
                   margin-left: 10px;
                   .item{
                     &-img{
-                      width:100%;
+                      width:105px;
                       height: 105px;
                       border: 1px solid #bebebe;
                       >img{
                         width: 100%;
                         height: 100%;
+                      }
+                      .seeMore{
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        padding-top: 24px;
+                        text-align: center;
+                        .text{
+                          border-bottom: 1px solid #bebebe;
+                          font-size: 15px;
+                          padding-bottom: 3px;
+                          color: #f1a263;
+                        }
+                        .sub-text{
+                          color: #666;
+                          font-size: 15px;
+                        }
                       }
                     }
                     &-title{
@@ -308,6 +329,26 @@ export default {
                     }
                   }
                 }
+              }
+            }
+          }
+          .lists{
+            .list-title{
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
+              vertical-align: middle;
+              color: #666;
+              .line{
+                height: 1px;
+                display: inline-block;
+                width: 60px;
+                background: #f8e372;
+                vertical-align: middle;
+              }
+              .text{
+                font-size: 12px;
+                padding: 0 15px;
               }
             }
           }
