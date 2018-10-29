@@ -48,6 +48,7 @@ export default {
 <style lang='scss' scoped>
 .tl-list-body{
   height:100%;
+  background-color: #eee;
   .tl-list-main{
     flex:1;
     display: flex;

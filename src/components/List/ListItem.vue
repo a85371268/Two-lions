@@ -25,8 +25,10 @@ export default {
 
 <style lang='scss' scoped>
 .tl-list-item{
-  width:50%;
+  width:49%;
   height:230px;
+  margin-bottom:8px;
+  background-color: #fff;
   .tl-list-item-img{
     height:150px;
     img{
