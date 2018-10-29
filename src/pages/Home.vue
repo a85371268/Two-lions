@@ -108,7 +108,7 @@
 <script>
 import HomeHeader from '../components/Home/HomeHeader'
 import Swipper from '@/components/Home/HomeSwipper'
-import { getHomeData } from '@/axios'
+// import { getHomeData } from '@/axios'
 export default {
   name: 'home',
   components: {
@@ -126,6 +126,13 @@ export default {
     }
   },
   mounted () {
+    this.$http.default.axios.all([
+      this.$http.getHomeTabbar(),
+      this.$http.getHomeData()
+    ]).then(this.$http.default.axios.spread(function (userResp, reposResp) {
+      console.log('User', userResp.data)
+      console.log('Repositories', reposResp.data)
+    }))
     // getHomeTabbar()
     //   .tnen(resp => {
     //     if (resp.data.code === 200) {
@@ -136,16 +143,16 @@ export default {
     //   })
     //   .catch(err => console.error(err))
 
-    getHomeData()
-      .then(resp => {
-        if (resp.data.code === 200) {
-          const data = resp.data.data
-          this.banners = data.banners
-          this.grids = data.gridsV2
-          this.rankings = data.topList
-        }
-      })
-      .catch(err => console.error(err))
+    // getHomeData()
+    //   .then(resp => {
+    //     if (resp.data.code === 200) {
+    //       const data = resp.data.data
+    //       this.banners = data.banners
+    //       this.grids = data.gridsV2
+    //       this.rankings = data.topList
+    //     }
+    //   })
+    //   .catch(err => console.error(err))
   },
   methods: {
     loadMore () {

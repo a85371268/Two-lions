@@ -7,7 +7,6 @@ import actions from './actions'
 
 Vue.use(Vuex)
 const isDev = process.env.NODE_ENV === 'development'
-console.log(Vuex)
 export default new Vuex.Store({
   strict: isDev,
   state,
