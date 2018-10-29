@@ -5,11 +5,12 @@ import App from './App'
 import router from './router'
 import MintUi from 'mint-ui'
 import store from './store'
+import * as ajax from './axios'
 import 'mint-ui/lib/style.css'
 import './sass/reset.scss'
 Vue.config.productionTip = false
 Vue.use(MintUi)
-// Vue.use(axios)
+Vue.prototype.$http = ajax
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

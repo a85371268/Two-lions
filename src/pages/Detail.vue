@@ -43,6 +43,9 @@
       </div>
     </div>
     <div class="tl-detail-btn">
+      <div class="tl-detail-btn-cart">
+        <i class="icon iconfont icon-cart-normal"></i>
+      </div>
       <button @click="addCart(proInfo)">加入购物车</button>
       <button>立即购买</button>
     </div>
@@ -50,7 +53,6 @@
 </template>
 
 <script>
-import { getDetail } from '@/axios'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -74,7 +76,7 @@ export default {
     }
   },
   mounted () {
-    getDetail(this.$route.params.id).then(resp => {
+    this.$http.getDetail(this.$route.params.id).then(resp => {
       if (resp.data.code === 200) {
         const data = resp.data.data.detail
         this.sliderList = data.photo

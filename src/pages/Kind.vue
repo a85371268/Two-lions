@@ -12,7 +12,6 @@
 import ListHeader from '../components/List/ListHeader'
 import ListLeft from '../components/List/ListLeft'
 import ListRight from '../components/List/ListRight'
-import { getItem } from '@/axios'
 
 export default {
   name: 'kind',
@@ -35,7 +34,7 @@ export default {
       this.geData(id)
     },
     geData (id) {
-      getItem(id).then(resp => {
+      this.$http.getItem(id).then(resp => {
         if (resp.data.code === 200) {
           this.categories = resp.data.data.categories
           this.categorieName = resp.data.data.category.name
