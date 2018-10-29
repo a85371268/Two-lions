@@ -5,10 +5,10 @@
       </mt-header>
     </div>
     <div class="tl-cart-main">
-      <cart-item></cart-item>
+      <cart-item v-for="item in cart" :key="item.id" :item="item"></cart-item>
     </div>
     <div class="tl-cart-btn">
-      <div class="tl-cart-allprice">总价格：4564</div>
+      <div class="tl-cart-allprice">总价格：￥{{allPrice.toFixed(2)}}</div>
       <button>立即购买</button>
     </div>
   </div>
@@ -16,10 +16,15 @@
 
 <script>
 import CartItem from '@/components/Cart/cartItem'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'cart',
   components: {
     CartItem
+  },
+  computed: {
+    ...mapState(['cart']),
+    ...mapGetters(['allPrice'])
   }
 }
 </script>
@@ -27,6 +32,7 @@ export default {
 <style lang='scss' scoped>
 .tl-cart-body{
   height:100%;
+  background-color: #eee;
   .tl-cart-header{
     height:40px;
     .mint-header{
@@ -35,6 +41,7 @@ export default {
   }
   .tl-cart-main{
     flex:1;
+    overflow-y: auto;
   }
   .tl-cart-btn{
     height:30px;

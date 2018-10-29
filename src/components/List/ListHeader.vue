@@ -1,7 +1,17 @@
 <template>
   <div class="tl-list-header">
     <span v-if="goback"><i class="icon iconfont icon-fanhui" @click="goBack"></i></span>
-    <div class="tl-list-seach">
+    <div class="tl-list-seach" v-if="isInput===true">
+      <i class="icon iconfont icon-seach"></i>
+      <input
+      type="text"
+      placeholder="套装 女"
+      v-model="searchText"
+      ref="inp"
+      @keyup.enter="search">
+      <button @click.enter="search">搜索</button>
+    </div>
+    <div class="tl-list-seach" @click="goSearch" v-else>
       <i class="icon iconfont icon-seach"></i>
       <span>套装 女</span>
     </div>
@@ -11,21 +21,40 @@
 <script>
 export default {
   name: 'ListHeader',
-  props: ['goback'],
+  props: ['goback', 'isInput'],
+  data () {
+    return {
+      searchText: '套装 女'
+    }
+  },
+  mounted () {
+    if (this.isInput) {
+      this.$refs.inp.focus()
+    }
+  },
   methods: {
     goBack () {
       this.$router.back()
+    },
+    goSearch () {
+      this.$router.push('/search')
+    },
+    search () {
+      // const historys = window.localStorage.getItem('tl-history').splice(',') || []
+      // console.log(historys)
+      this.$router.push(`/list/1?word=${this.searchText}`)
     }
   }
 }
 </script>
 
-<style lang='scss' scoed>
+<style lang='scss' scoped>
 $main-color: #f8e372;
 .tl-list-header {
     height:40px;
     background-color: $main-color;
     position: relative;
+    display: flex;
     >span{
       color:#666;
       margin-left:5px;
@@ -43,14 +72,30 @@ $main-color: #f8e372;
       right: 0;
       margin:auto;
       padding-left:10px;
+      overflow: hidden;
+      display: flex;
       >i{
         font-size: 25px;
         display: inline-block;
         vertical-align: middle;
+        margin-left:15px;
       }
       >span{
         font-size: 12px;
         color:#666;
+        line-height: 26px;
+      }
+      input{
+        width:80%;
+        flex: 1;
+        height:100%;
+        font-size: 12px;
+        color:#666;
+      }
+      button{
+        border:0;
+        background-color: #e1c115;
+        color:#fff;
       }
     }
   }
