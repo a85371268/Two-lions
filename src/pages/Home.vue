@@ -97,7 +97,6 @@
 
 <script>
 import HomeHeader from '../components/Home/HomeHeader'
-import { getHomeData } from '@/axios'
 export default {
   name: 'home',
   components: {
@@ -123,7 +122,7 @@ export default {
     //   })
     //   .catch(err => console.error(err))
 
-    getHomeData()
+    this.$http.getHomeData()
       .then(resp => {
         if (resp.data.code === 200) {
           const data = resp.data.data

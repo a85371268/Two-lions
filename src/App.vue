@@ -3,8 +3,8 @@
     <div class="lt-body">
       <router-view/>
     </div>
-    <div class="lt-tabbar-wrapper">
-      <tabbar v-if="$route.name!=='detail'&&$route.name!=='list'"></tabbar>
+    <div class="lt-tabbar-wrapper"  v-if="$route.name!=='detail'&&$route.name!=='list'">
+      <tabbar></tabbar>
     </div>
   </div>
 </template>
