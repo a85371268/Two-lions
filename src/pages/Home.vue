@@ -22,56 +22,8 @@
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="1">
           <swipper :banners="banners" />
-          <div class="grids">
-            <div class="grid" v-for="item in grids" :key="item.id">
-              <div class="grid-msg">
-                <p class="title">{{item.title}}</p>
-                <p class="text">{{item.text}}</p>
-              </div>
-              <img
-                class="grid-img"
-                :src="item.imageUrl"
-              >
-            </div>
-          </div>
-          <div class="rankings">
-            <div class="rankings-head">
-              <p class="rankings-head-title">每日排行榜</p>
-              <span class="rankings-head-all">查看全部  ></span>
-            </div>
-            <div class="rankings-swipper">
-              <div class="rankings-swipper-wrapper">
-                <div
-                  class="rankings-swipper-wrapper-item"
-                  v-for="rank in rankings"
-                  :key="rank.id"
-                >
-                  <div class="item-img">
-                    <img
-                      :src="rank.image"
-                    >
-                  </div>
-                  <div class="item-title">{{rank.title}}</div>
-                  <div class="item-price">
-                    <div class="item-price-left">
-                      <span>￥</span>
-                      <i>{{rank.price}}</i>
-                    </div>
-                    <div class="item-price-right">{{rank.saleNum}}人已买</div>
-                  </div>
-                </div>
-                <div class="rankings-swipper-wrapper-item">
-                  <div class="item-img">
-                    <a href="http://localhost:8080/#/kind" class="seeMore">
-                      <span class="text">更多商品</span>
-                      <br/>
-                      <span class="sub-text">see-more</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <home-grids :grids="grids" />
+          <home-rankings :rankings="rankings"></home-rankings>
           <div class="lists">
             <div class="list-title">
               <span class="line"></span>
@@ -108,12 +60,16 @@
 <script>
 import HomeHeader from '../components/Home/HomeHeader'
 import Swipper from '@/components/Home/HomeSwipper'
+import HomeGrids from '@/components/Home/HomeGrids'
+import HomeRankings from '@/components/Home/HomeRankings'
 import { getHomeData } from '@/axios'
 export default {
   name: 'home',
   components: {
     HomeHeader,
-    Swipper
+    Swipper,
+    HomeGrids,
+    HomeRankings
   },
   data () {
     return {
@@ -197,141 +153,6 @@ export default {
       overflow: auto;
       .mint-tab-container{
         &-wrap{
-          .grids{
-            width: 100%;
-            height: 145px;
-            border-top:1px solid #999;
-            border-bottom: 1px solid #999;
-            background: white;
-            margin-bottom: 10px;
-            .grid{
-              float: left;
-              height: 50%;
-              width: 50%;
-              padding: 8px;
-              position: relative;
-              &-msg{
-                padding-left: 10px;
-                .title{
-                  font-size: 14px;
-                  color: #634b24;
-                  margin-top: 5px;
-                }
-                .text{
-                  color: #f1a263;
-                  font-size: 12px;
-                  margin-top: 5px;
-                }
-              }
-              &-img{
-                width: 56px;
-                height: 56px;
-                position: absolute;
-                left:60%;
-                bottom: 10%;
-              }
-              &:first-child{
-                height: 100%;
-                border-right: 1px solid #bebebe;
-                .grid-img{
-                  width: 68px;
-                  height: 68px;
-                  position: absolute;
-                  left: 50%;
-                  bottom: 10%;
-                  margin-left: -34px;
-                }
-              }
-              &:nth-child(2){
-                border-bottom: 1px solid #bebebe;
-              }
-            }
-          }
-          .rankings{
-            background: white;
-            &-head{
-              height: 35px;
-              line-height: 35px;
-              padding: 0 10px;
-              font-size: 14px;
-              display: flex;
-              justify-content: space-between;
-              color: #666;
-              >span{
-                color: #bebebe;
-                margin-right: 10px;
-              }
-            }
-            &-swipper{
-              height: 163px;
-              &-wrapper{
-                width: 100%;
-                height: 100%;
-                overflow-y: hidden;
-                display: flex;
-                &-item{
-                  width: 105px;
-                  margin-left: 10px;
-                  .item{
-                    &-img{
-                      width:105px;
-                      height: 105px;
-                      border: 1px solid #bebebe;
-                      >img{
-                        width: 100%;
-                        height: 100%;
-                      }
-                      .seeMore{
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                        padding-top: 24px;
-                        text-align: center;
-                        .text{
-                          border-bottom: 1px solid #bebebe;
-                          font-size: 15px;
-                          padding-bottom: 3px;
-                          color: #f1a263;
-                        }
-                        .sub-text{
-                          color: #666;
-                          font-size: 15px;
-                        }
-                      }
-                    }
-                    &-title{
-                      font-size: 12px;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      white-space: nowrap;
-                      height: 25px;
-                      line-height: 25px;
-                      padding-left: 5px;
-                      color: #666;
-                    }
-                    &-price{
-                      display: flex;
-                      font-size: 14px;
-                      color:#e76360;
-                      &-left{
-                        display: flex;
-                        >span{
-                          font-size: 10px;
-                          line-height: 23px;
-                        }
-                      }
-                      &-right{
-                        font-size: 10px;
-                        line-height: 22px;
-                        margin-left: 5px;
-                        color: #bebebe;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
           .lists{
             .list-title{
               height: 40px;
