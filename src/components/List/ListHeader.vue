@@ -5,7 +5,6 @@
       <i class="icon iconfont icon-seach"></i>
       <input
       type="text"
-      placeholder="套装 女"
       v-model="searchText"
       ref="inp"
       @keyup.enter="search">
@@ -13,7 +12,7 @@
     </div>
     <div class="tl-list-seach" @click="goSearch" v-else>
       <i class="icon iconfont icon-seach"></i>
-      <span>套装 女</span>
+      <span>{{this.$route.query.word}}</span>
     </div>
   </div>
 </template>
