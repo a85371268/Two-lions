@@ -7,7 +7,7 @@
         </div>
         <mt-swipe :auto="4000">
           <mt-swipe-item v-for="slider in sliderList" :key="slider.id">
-            <img :src="slider.url">
+            <img :src="slider.url" style="width:100%">
           </mt-swipe-item>
         </mt-swipe>
       </div>

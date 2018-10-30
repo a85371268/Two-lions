@@ -26,14 +26,13 @@ export default {
 <style lang='scss' scoped>
 .tl-list-item{
   width:49%;
-  height:230px;
   margin-bottom:8px;
+  padding-bottom:10px;
   background-color: #fff;
   .tl-list-item-img{
-    height:150px;
     img{
       width:100%;
-      height:100%;
+      // height:100%;
     }
   }
   .tl-list-item-des{
