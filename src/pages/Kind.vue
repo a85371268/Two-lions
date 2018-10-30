@@ -23,7 +23,8 @@ export default {
   data () {
     return {
       categories: [],
-      categorieName: ''
+      categorieName: '',
+      cacheData: window.localStorage.getItem('tl-cachData') ? JSON.parse(window.localStorage.getItem('tl-cachData')) : []
     }
   },
   mounted () {
@@ -34,12 +35,19 @@ export default {
       this.geData(id)
     },
     geData (id) {
-      this.$http.getItem(id).then(resp => {
-        if (resp.data.code === 200) {
-          this.categories = resp.data.data.categories
-          this.categorieName = resp.data.data.category.name
-        }
-      }).catch(err => console.error(err))
+      if (this.cacheData.some(item => id === item.id)) {
+        const newArr = this.cacheData.filter(item => item.id === id)
+        this.categories = newArr[0].data
+        this.categorieName = newArr[0].categorieName
+      } else {
+        this.$http.getItem(id).then(resp => {
+          console.log(resp)
+          this.categories = resp.categories
+          this.categorieName = resp.category.name
+          this.cacheData.push({id: id, data: resp.categories, categorieName: resp.category.name})
+          window.localStorage.setItem('tl-cachData', JSON.stringify(this.cacheData))
+        }).catch(err => console.error(err))
+      }
     }
   }
 }

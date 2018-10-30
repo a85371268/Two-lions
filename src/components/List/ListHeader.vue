@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: 'ListHeader',
   props: ['goback', 'isInput'],
@@ -40,10 +41,10 @@ export default {
       this.$router.push('/search')
     },
     search () {
-      // const historys = window.localStorage.getItem('tl-history').splice(',') || []
-      // console.log(historys)
+      this.addHistory(this.searchText)
       this.$router.push(`/list/1?word=${this.searchText}`)
-    }
+    },
+    ...mapMutations(['addHistory'])
   }
 }
 </script>

@@ -7,6 +7,7 @@
     <div class="tl-cart-main">
       <cart-item v-for="item in cart" :key="item.id" :item="item"></cart-item>
     </div>
+    <!-- {{cart}} -->
     <div class="tl-cart-btn">
       <div class="tl-cart-allprice">总价格：￥{{allPrice.toFixed(2)}}</div>
       <button>立即购买</button>

@@ -23,9 +23,7 @@ export default {
   },
   mounted () {
     getKindList().then(resp => {
-      if (resp.data.code === 200) {
-        this.kindsList = resp.data.data.list.filter(item => item.name !== '今日推荐')
-      }
+      this.kindsList = resp.list.filter(item => item.name !== '今日推荐')
     })
   },
   methods: {
@@ -40,7 +38,6 @@ export default {
 <style lang='scss' scoped>
 .tl-list-main-left{
   width:80px;
-  // height:800px;
   border-right:1px solid #dfdfdf;
   overflow: auto;
   ul{

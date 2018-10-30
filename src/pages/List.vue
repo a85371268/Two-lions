@@ -29,22 +29,18 @@ export default {
   methods: {
     gitsubItem (id) {
       this.$http.getItem(id).then(resp => {
-        if (resp.data.code === 200) {
-          this.categories = resp.data.data.categories
-        }
+        this.categories = resp.categories
       }).catch(err => console.error(err))
     }
   },
   mounted () {
     if (!this.$route.query.word) {
       this.$http.getList(this.$route.params.id).then(resp => {
-        if (resp.data.code === 200) {
-          this.itemList = resp.data.data.items.list
-        }
+        this.itemList = resp.items.list
       }).catch(err => console.error(err))
     } else {
       this.$http.getSearch(this.$route.query.word).then(resp => {
-        this.itemList = resp.data.data.list
+        this.itemList = resp.list
       }).catch(err => console.error(err))
     }
   }

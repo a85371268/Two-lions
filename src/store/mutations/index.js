@@ -16,8 +16,7 @@ export default {
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   },
   reduceCount (state, id) {
-    let newCart = state.cart
-    newCart = newCart.reduce((result, item) => {
+    state.cart = state.cart.reduce((result, item) => {
       if (item.id === id) {
         item.count -= 1
       }
@@ -26,16 +25,25 @@ export default {
       }
       return result
     }, [])
-    state.cart = newCart
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   },
   addCount (state, id) {
-    state.cart.map(item => {
+    state.cart = state.cart.map(item => {
       if (item.id === id) {
         item.count += 1
       }
       return item
     })
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+  addHistory (state, word) {
+    if (!state.historys.includes(word)) {
+      state.historys.push(word)
+      window.localStorage.setItem('tl-history', state.historys.join(','))
+    }
+  },
+  clearHistory (state) {
+    state.historys = []
+    window.localStorage.removeItem('tl-history')
   }
 }
