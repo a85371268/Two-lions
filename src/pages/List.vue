@@ -1,7 +1,7 @@
 <template>
   <div class="tl-list-body body">
     <list-header :goback="true"></list-header>
-    <list-nav></list-nav>
+    <list-nav @sortList="sortList" :status="status"></list-nav>
     <div class="tl-list-main">
       <list-item v-for="item in itemList" :key='item.id' :item="item"></list-item>
     </div>
@@ -23,7 +23,9 @@ export default {
   data () {
     return {
       categories: [],
-      itemList: []
+      itemList: [],
+      status: 0,
+      isList: this.$route.query.word
     }
   },
   methods: {
@@ -31,17 +33,30 @@ export default {
       this.$http.getItem(id).then(resp => {
         this.categories = resp.categories
       }).catch(err => console.error(err))
+    },
+    sortList (sort) {
+      if (this.isList) {
+        this.getSearch(sort)
+      } else {
+        this.getList(sort)
+      }
+    },
+    getSearch (sort) {
+      this.$http.getSearch(this.$route.query.word, sort).then(resp => {
+        this.itemList = resp.list
+      }).catch(err => console.error(err))
+    },
+    getList (sort) {
+      this.$http.getList(this.$route.params.id, sort).then(resp => {
+        this.itemList = resp.items.list
+      }).catch(err => console.error(err))
     }
   },
   mounted () {
-    if (!this.$route.query.word) {
-      this.$http.getList(this.$route.params.id).then(resp => {
-        this.itemList = resp.items.list
-      }).catch(err => console.error(err))
+    if (!this.isList) {
+      this.getList(0)
     } else {
-      this.$http.getSearch(this.$route.query.word).then(resp => {
-        this.itemList = resp.list
-      }).catch(err => console.error(err))
+      this.getSearch(0)
     }
   }
 }

@@ -1,14 +1,38 @@
 <template>
 <div class="tl-list-nav">
-  <div class="tl-list-nav-item active">默认排序</div>
-  <div class="tl-list-nav-item">价格最低</div>
-  <div class="tl-list-nav-item">销量最高</div>
+  <div :class="currentId!==nav.id?'tl-list-nav-item':'tl-list-nav-item active'"
+  v-for="nav in listNavList"
+  :key="nav.id"
+  @click="sortList(nav.id)">{{nav.text}}</div>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'listNav'
+  name: 'listNav',
+  props: ['status'],
+  data () {
+    return {
+      currentId: 0,
+      listNavList: [{
+        id: 0,
+        text: '默认排序'
+      }, {
+        id: 1,
+        text: '价格最低'
+      }, {
+        id: 2,
+        text: '销量最高'
+      }
+      ]
+    }
+  },
+  methods: {
+    sortList (id) {
+      this.$emit('sortList', id)
+      this.currentId = id
+    }
+  }
 }
 </script>
 
