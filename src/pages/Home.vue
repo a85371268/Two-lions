@@ -4,15 +4,14 @@
       <home-header></home-header>
       <div class="tl-home-body-tabbar">
         <div class="tl-home-body-tabbar-wrapper">
-          <mt-navbar v-model="selected">
-            <mt-tab-item
-              v-for="tab in tabs"
-              :key="tab.id"
-              :id="tab.id.toString()"
-            >
-              {{tab.name}}
-            </mt-tab-item>
-          </mt-navbar>
+          <ul class="body-tabbar">
+            <li
+              v-for="item in tabs"
+              :key="item.id"
+              @click="goClassify(item.id)"
+              :class="selected===item.id?'active':''"
+            >{{item.name}}</li>
+          </ul>
         </div>
         <span class="navbar-btn" @click="showClassify=!showClassify"></span>
         <div class="navbar-title" v-show="showClassify">全部分类</div>
@@ -21,8 +20,8 @@
             v-for="item in tabs"
             :key="item.id"
             :tabs="item"
-            v-model="selected"
-            :id="item.id"
+            @set-id="goClassify"
+            :class="selected===item.id?'active':''"
           ></classify-item>
         </div>
       </div>
@@ -30,19 +29,19 @@
 
     <!-- tab-container -->
     <div class="tl-home-body-main">
-      <mt-tab-container v-model="selected">
+      <div v-if="selected===1">
         <!--今日推荐-->
-        <mt-tab-container-item id="1">
+        <div class="home-page">
           <swipper :banners="banners" />
           <home-grids :grids="grids" />
           <home-rankings :rankings="rankings"></home-rankings>
           <div class="lists">
-            <list-title>每日推荐，小编精选</list-title>
+            <list-title>{{note}}</list-title>
             <div
-              class="list-wrapper"
-              v-infinite-scroll="loadMore"
+              class="list-wrapper">
+              <!-- v-infinite-scroll="loadMore"
               infinite-scroll-disabled="loading"
-              infinite-scroll-distance="10">
+              infinite-scroll-distance="10" -->
               <product-list
                 v-for="item in list"
                 :key="item.id"
@@ -52,19 +51,8 @@
             </div>
             <div v-show="this.loading" class="load-more">努力加载中…</div>
           </div>
-        </mt-tab-container-item>
-        <mt-tab-container-item id="2" class="classify-pages">
-          <div class="classify">
-            <classify-item
-              v-for="item in categorie"
-              :key="item.id"
-              :categorie="categorie"
-            ></classify-item>
-          </div>
-          <div class="classify-title"></div>
-          <div class="classify-list"></div>
-        </mt-tab-container-item>
-        <mt-tab-container-item id="4">
+        </div>
+        <!-- <mt-tab-container-item id="4">
           <mt-cell v-for="n in 6" :key="n" :title="'选项 ' + n" />
         </mt-tab-container-item>
         <mt-tab-container-item id="3">
@@ -72,8 +60,26 @@
         </mt-tab-container-item>
         <mt-tab-container-item id="5">
           <mt-cell v-for="n in 6" :key="n" :title="'周边 ' + n" />
-        </mt-tab-container-item>
-      </mt-tab-container>
+        </mt-tab-container-item> -->
+      </div>
+      <div class="classify-pages" v-else>
+        <div class="classify-wrapper">
+          <list-classify-item
+            v-for="item in categories"
+            :key="item.id"
+            :categorie="item"
+            v-model="selected"
+          ></list-classify-item>
+        </div>
+        <div
+          class="list-wrapper">
+          <product-list
+            v-for="item in list"
+            :key="item.id"
+            :item="item"
+          ></product-list>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -86,6 +92,7 @@ import ProductList from '@/components/List/ListItem'
 import ListTitle from '@/components/Home/HomeListTitle'
 import HomeRankings from '@/components/Home/HomeRankings'
 import ClassifyItem from '@/components/Home/HomeClassifyItem'
+import ListClassifyItem from '@/components/List/Item'
 // import { getHomeData } from '@/axios'
 
 export default {
@@ -97,21 +104,25 @@ export default {
     HomeRankings,
     ListTitle,
     ProductList,
-    ClassifyItem
+    ClassifyItem,
+    ListClassifyItem
   },
   data () {
     return {
-      selected: '1',
+      selected: 1,
       tabs: [],
       banners: [],
       grids: [],
       rankings: [],
       list: [],
+      note: '',
       nextIndex: 0,
       isEnd: false,
       loading: false,
-      categorie: [],
-      showClassify: false
+      categories: [],
+      classfiyTabs: [],
+      showClassify: false,
+      data: []
     }
   },
   updated () {
@@ -128,10 +139,38 @@ export default {
       this.banners = reposData.banners
       this.grids = reposData.gridsV2
       this.rankings = reposData.topList
+      this.note = reposData.note
+      this.classfiyTabs = userData.list.filter(item => item.name !== '今日推荐')
+      this.categories = reposData.categories
+      this.list = reposData.items.list
     }))
   },
   methods: {
+    setSelected (id) {
+      this.selected = id
+      console.log(this.selected)
+    },
+    goClassify (id) {
+      this.selected = id
+      this.$http.getHomeData(id)
+        .then(resp => {
+          if (resp.data.code === 200) {
+            this.categories = resp.data.data.categories
+            this.list = resp.data.data.items.list
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => {
+          this.showClassify = false
+        })
+    },
+    loadHooo () {
+      console.log(123)
+    },
     loadMore () {
+      console.log(456)
       this.loading = true
       // 此处请求下一组数据
       setTimeout(() => {
@@ -171,23 +210,21 @@ export default {
       position: relative;
       &-wrapper{
         width: 90%;
-        overflow: auto;
-        .mint-navbar{
-          background: #f8e372;
+        overflow-y: hidden;
+        >ul{
+          display: flex;
           height: 40px;
-          .mint-tab-item{
+          >li{
+            white-space: nowrap;
+            margin-left: 12px;
+            margin-right: 12px;
+            line-height: 40px;
+            font-size: 14px;
             color: #666;
-            white-space:nowrap;
-            margin-left: 15px;
-            margin-right: 15px;
-            float: left;
-            &-label{
-              font-size: 14px !important;
-            }
           }
-          .is-selected{
-            border-bottom:5px solid black;
+          .active{
             color: black;
+            border-bottom: 2px solid black;
           }
         }
       }
@@ -215,37 +252,46 @@ export default {
         width: 100%;
         background: white;
         position: absolute;
-        top: 40px;
+        top: 38px;
         left: 0;
         z-index: 1;
         display: flex;
         flex-wrap: wrap;
       }
+
     }
     &-main{
       flex: 1;
-      overflow: auto;
-      .mint-tab-container{
-        &-wrap{
-          .lists{
-            .list-wrapper{
-              display: flex;
-              flex-wrap: wrap;
-            }
-            .load-more{
-              text-align: center;
-              line-height: 30px;
-              height: 30px;
-              color: #ed908e;
-            }
-          }
+      overflow-x: hidden;
+      .lists{
+        .list-wrapper{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+        .load-more{
+          text-align: center;
+          line-height: 30px;
+          height: 30px;
+          color: #ed908e;
         }
       }
       .classify-pages{
-        display: flex;
-        flex-wrap: wrap;
+        .classify-wrapper{
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          background: white;
+          margin-bottom: 20px;
+          border-bottom: 1px solid #999;
+        }
+        .list-wrapper{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
       }
     }
-
   }
 </style>

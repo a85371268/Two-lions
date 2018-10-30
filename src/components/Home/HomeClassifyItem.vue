@@ -11,7 +11,7 @@ export default {
   props: ['tabs'],
   methods: {
     goToClassify () {
-      console.log(this.tabs.id)
+      this.$emit('set-id', this.tabs.id)
     }
   }
 }
@@ -34,6 +34,11 @@ dl{
     margin-top: 8px;
     color:#666;
     text-align:center;
+  }
+}
+.active{
+  >dd{
+    color: rgb(247, 37, 124);
   }
 }
 </style>
