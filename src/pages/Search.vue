@@ -1,34 +1,37 @@
 <template>
   <div class="tl-search-body">
     <list-header :goback="true" :isInput="true"></list-header>
-    <div class="tl-search-clearhistory">
-      清空搜索历史
-    </div>
+    <h1><span>搜索历史</span><i class="icon iconfont icon-ziyuan" @click="clearHistory"></i></h1>
+    <sarch-item></sarch-item>
   </div>
 </template>
 
 <script>
 import ListHeader from '../components/List/ListHeader'
+import SarchItem from '../components/Search/searchItem'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'search',
   components: {
-    ListHeader
+    ListHeader,
+    SarchItem
+  },
+  methods: {
+    ...mapMutations(['clearHistory'])
   }
 }
 </script>
 
 <style lang='scss' scoped>
 .tl-search-body{
-  .tl-search-clearhistory{
+  h1{
     font-size: 12px;
-    height:30px;
-    border:1px solid #dfdfdf;
-    width:95%;
-    margin:10px auto;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 10px;
+    color:#555;
+    padding:0 15px;
+    margin-top:15px;
+    display: flex;
+    justify-content: space-between
   }
 }
 </style>

@@ -8,8 +8,12 @@ ajax.interceptors.request.use((config) => {
   return config
 })
 ajax.interceptors.response.use((resp) => {
-  Indicator.close('loading……')
-  return resp
+  if (resp.data.code === 200) {
+    Indicator.close('loading……')
+    return resp.data.data
+  } else {
+    return '请求错误！'
+  }
 })
 
 export default { axios }

@@ -42,6 +42,7 @@ export default {
   .tl-list-main-right-item{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
   }
 }
 </style>

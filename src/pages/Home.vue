@@ -133,8 +133,8 @@ export default {
       this.$http.getHomeTabbar(),
       this.$http.getHomeData(this.selected)
     ]).then(this.$http.default.axios.spread((userResp, reposResp) => {
-      const userData = userResp.data.data
-      const reposData = reposResp.data.data
+      const userData = userResp
+      const reposData = reposResp
       this.tabs = userData.list
       this.banners = reposData.banners
       this.grids = reposData.gridsV2
@@ -154,10 +154,8 @@ export default {
       this.selected = id
       this.$http.getHomeData(id)
         .then(resp => {
-          if (resp.data.code === 200) {
-            this.categories = resp.data.data.categories
-            this.list = resp.data.data.items.list
-          }
+          this.categories = resp.categories
+          this.list = resp.items.list
         })
         .catch(err => {
           console.log(err)
@@ -176,12 +174,10 @@ export default {
       setTimeout(() => {
         this.$http.getHomeMore(this.nextIndex)
           .then(resp => {
-            if (resp.data.code === 200) {
-              this.nextIndex = resp.data.data.nextIndex
-              this.isEnd = resp.data.data.isEnd
-              const newList = this.list.concat(resp.data.data.list)
-              this.list = newList
-            }
+            this.nextIndex = resp.nextIndex
+            this.isEnd = resp.isEnd
+            const newList = this.list.concat(resp.list)
+            this.list = newList
           })
           .catch(err => {
             console.log(err)

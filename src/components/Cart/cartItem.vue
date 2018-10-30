@@ -10,7 +10,6 @@
           <span>{{item.count}}</span>
           <span @click="addCount(item.id)">+</span>
         </div>
-
       </div>
     </div>
   </div>
@@ -30,7 +29,7 @@ export default {
 
 <style lang='scss' scoped>
 .tl-cart-cartitem{
-  height:80px;
+  padding-bottom: 5px;
   background-color: #fff;
   margin-bottom:10px;
   display: flex;
@@ -45,9 +44,6 @@ export default {
     padding-right:10px;
     p{
       font-size: 12px;
-      // text-overflow: ellipsis;
-      // white-space: nowrap;
-      // overflow: hidden;
       color:#666;
       line-height: 23px;
     }

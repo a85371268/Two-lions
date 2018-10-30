@@ -73,7 +73,8 @@ export default {
         id: this.$route.params.id,
         title: '',
         price: 0,
-        img: ''
+        img: '',
+        count: 1
       }
     }
   },
@@ -85,20 +86,18 @@ export default {
   },
   mounted () {
     this.$http.getDetail(this.$route.params.id).then(resp => {
-      if (resp.data.code === 200) {
-        const data = resp.data.data.detail
-        this.sliderList = data.photo
-        this.proInfo.img = data.photo[0].url
-        this.proInfo.title = data.title
-        this.proInfo.price = data.price
-        this.saleNum = data.saleNum
-        this.accessoryHints = data.accessoryHints
-        this.picUrl = data.shop.picUrl
-        this.shopTitle = data.shop.title
-        this.serviceScore = data.shop.serviceScore
-        this.itemScore = data.shop.itemScore
-        this.deliveryScore = data.shop.deliveryScore
-      }
+      const data = resp.detail
+      this.sliderList = data.photo
+      this.proInfo.img = data.photo[0].url
+      this.proInfo.title = data.title
+      this.proInfo.price = data.price
+      this.saleNum = data.saleNum
+      this.accessoryHints = data.accessoryHints
+      this.picUrl = data.shop.picUrl
+      this.shopTitle = data.shop.title
+      this.serviceScore = data.shop.serviceScore
+      this.itemScore = data.shop.itemScore
+      this.deliveryScore = data.shop.deliveryScore
     }).catch(err => {
       console.log(err)
     })
