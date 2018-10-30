@@ -2,7 +2,7 @@
   <div class="tl-home-header">
     <div class="tl-home-header-wrapper">
       <mt-switch></mt-switch>
-      <div class="tl-home-header-seach">
+      <div class="tl-home-header-seach" @click="goSearch">
         <i class="icon iconfont icon-seach"></i>
         <span>卫衣 男</span>
       </div>
@@ -16,6 +16,11 @@ export default {
   data () {
     return {
       selected: '1'
+    }
+  },
+  methods: {
+    goSearch () {
+      this.$router.push('/search')
     }
   }
 }
