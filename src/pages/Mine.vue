@@ -6,27 +6,12 @@
         <i class="iconfont icon-shezhi"></i>
       </div>
       <div class="tl-mine-top-bgbox">
-        <div class="tl-mine-top-bgbox-title">
+        <div class="tl-mine-top-bgbox-title" @click="goLogin">
           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540897741903&di=4dca31c8b7834b9f2401b28a8201d421&imgtype=0&src=http%3A%2F%2Fimg5q.duitang.com%2Fuploads%2Fitem%2F201507%2F18%2F20150718193340_SNywm.thumb.700_0.jpeg">
-          <p>点击登陆</p>
+          <p @click="goLogin">点击登陆</p>
         </div>
         <div class="tl-mine-top-bgbox-links">
-          <div class="links-item">
-            <i class="iconfont icon-dingdan-mine"></i>
-            <span>我的订单</span>
-          </div>
-          <div class="links-item">
-            <i class="iconfont icon-cart-mine"></i>
-            <span>购物车</span>
-          </div>
-          <div class="links-item">
-            <i class="iconfont icon-shoucang-mine"></i>
-            <span>收藏商品</span>
-          </div>
-          <div class="links-item">
-            <i class="iconfont icon-eye-mine"></i>
-            <span>最近浏览</span>
-          </div>
+          <links-item v-for="msg in msgs" :key="msg.icon" :msg="msg"></links-item>
         </div>
       </div>
     </div>
@@ -42,10 +27,17 @@
 
 <script>
 import MineItem from '@/components/Mine/MineItem'
+import LinksItem from '@/components/Mine/LinksItem'
 export default {
   name: 'mine',
   components: {
-    MineItem
+    MineItem,
+    LinksItem
+  },
+  methods: {
+    goLogin () {
+      this.$router.push('/login')
+    }
   },
   data () {
     return {
@@ -54,6 +46,24 @@ export default {
         '求打分给好评啦~',
         '帮助与反馈',
         '关于熊猫优选'
+      ],
+      msgs: [
+        {
+          text: '我的订单',
+          icon: 'dingdan'
+        },
+        {
+          text: '购物车',
+          icon: 'cart'
+        },
+        {
+          text: '收藏商品',
+          icon: 'shoucang'
+        },
+        {
+          text: '最近浏览',
+          icon: 'eye'
+        }
       ]
     }
   }
@@ -121,20 +131,6 @@ export default {
         position: absolute;
         bottom: 15%;
         width: 100%;
-        .links-item{
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          >i{
-            font-size: 20px;
-            color:#666;
-          }
-          >span{
-            margin-top: 6px;
-            color: #666;
-            font-size: 12px;
-          }
-        }
       }
     }
   }

@@ -27,12 +27,12 @@
           </div>
         </div>
         <div class="rankings-swipper-wrapper-item">
-          <div class="item-img">
-            <a href="http://localhost:8080/#/kind" class="seeMore">
+          <div class="item-img" @click="goList">
+            <div class="seeMore">
               <span class="text">更多商品</span>
               <br/>
               <span class="sub-text">see-more</span>
-            </a>
+            </div>
           </div>
         </div>
       </div>
@@ -47,6 +47,9 @@ export default {
   methods: {
     goDetail (id) {
       this.$router.push(`/detail/${id}`)
+    },
+    goList () {
+      this.$router.push(`/kind`)
     }
   }
 }
