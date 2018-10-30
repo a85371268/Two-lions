@@ -148,7 +148,6 @@ export default {
   methods: {
     setSelected (id) {
       this.selected = id
-      console.log(this.selected)
     },
     goClassify (id) {
       this.selected = id
