@@ -9,7 +9,7 @@ export default {
         return item
       })
     } else {
-      // action.count = 1
+      action.count = 1
       newCart.push({
         ...action,
         count: 1
@@ -63,7 +63,6 @@ export default {
       item.isChecked = e.target.checked
       return item
     })
-
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   }
 }

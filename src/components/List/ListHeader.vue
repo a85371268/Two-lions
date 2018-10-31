@@ -12,7 +12,7 @@
     </div>
     <div class="tl-list-seach" @click="goSearch" v-else>
       <i class="icon iconfont icon-seach"></i>
-      <span>{{this.$route.query.word}}</span>
+      <span>{{this.$route.query.word?this.$route.query.word:'套装 女'}}</span>
     </div>
   </div>
 </template>
