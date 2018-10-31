@@ -74,7 +74,7 @@ export default {
         title: '',
         price: 0,
         img: '',
-        count: 1
+        isChecked: true
       }
     }
   },

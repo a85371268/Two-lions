@@ -1,5 +1,6 @@
 <template>
   <div class="tl-cart-cartitem">
+    <check-box :id="item.id" :isChecked="item.isChecked"></check-box>
     <img :src="item.img" alt="">
     <div class="tl-cart-cartitem-info">
       <p>{{item.title}}</p>
@@ -16,11 +17,15 @@
 </template>
 
 <script>
+import CheckBox from '@/components/base/CheckBox'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'cartItem',
   props: ['item'],
+  components: {
+    CheckBox
+  },
   methods: {
     ...mapMutations(['reduceCount', 'addCount'])
   }
@@ -33,6 +38,7 @@ export default {
   background-color: #fff;
   margin-bottom:10px;
   display: flex;
+
   img{
     width:80px;
     height:100%;

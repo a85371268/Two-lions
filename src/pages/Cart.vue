@@ -5,10 +5,14 @@
       </mt-header>
     </div>
     <div class="tl-cart-main">
-      <cart-item v-for="item in cart" :key="item.id" :item="item"></cart-item>
+      <cart-item
+      v-for="item in cart"
+      :key="item.id"
+      :item="item"
+      ></cart-item>
     </div>
-    <!-- {{cart}} -->
     <div class="tl-cart-btn">
+      <check-box title="全选"></check-box>
       <div class="tl-cart-allprice">总价格：￥{{allPrice.toFixed(2)}}</div>
       <button>立即购买</button>
     </div>
@@ -16,12 +20,14 @@
 </template>
 
 <script>
+import CheckBox from '@/components/base/CheckBox'
 import CartItem from '@/components/Cart/cartItem'
 import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'cart',
   components: {
-    CartItem
+    CartItem,
+    CheckBox
   },
   computed: {
     ...mapState(['cart']),
@@ -45,13 +51,14 @@ export default {
     overflow-y: auto;
   }
   .tl-cart-btn{
-    height:30px;
+    height:40px;
     display: flex;
+    background-color: #fff;
     .tl-cart-allprice{
       width:150px;
       font-size: 12px;
       text-align: center;
-      line-height: 30px;
+      line-height: 40px;
       color:#666;
     }
     button{

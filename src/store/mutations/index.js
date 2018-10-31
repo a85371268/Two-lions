@@ -9,8 +9,11 @@ export default {
         return item
       })
     } else {
-      action.count = 1
-      newCart.push(action)
+      // action.count = 1
+      newCart.push({
+        ...action,
+        count: 1
+      })
     }
     state.cart = newCart
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
@@ -45,5 +48,22 @@ export default {
   clearHistory (state) {
     state.historys = []
     window.localStorage.removeItem('tl-history')
+  },
+  changeChecked (state, id) {
+    state.cart = state.cart.map(item => {
+      if (item.id === id) {
+        item.isChecked = !item.isChecked
+      }
+      return item
+    })
+    window.localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+  allChecked (state, e) {
+    state.cart = state.cart.map(item => {
+      item.isChecked = e.target.checked
+      return item
+    })
+
+    window.localStorage.setItem('cart', JSON.stringify(state.cart))
   }
 }
