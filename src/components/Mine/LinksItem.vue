@@ -3,7 +3,11 @@
     <i :class="`iconfont icon-${msg.icon}-mine`"></i>
     <span>{{msg.text}}</span>
   </div>
-  <div class="links-item" v-else>
+  <div class="links-item" v-else-if="isLogin">
+    <i :class="`iconfont icon-${msg.icon}-mine`"></i>
+    <span>{{msg.text}}</span>
+  </div>
+  <div class="links-item" v-else @click="goLogin">
     <i :class="`iconfont icon-${msg.icon}-mine`"></i>
     <span>{{msg.text}}</span>
   </div>
@@ -16,6 +20,14 @@ export default {
   methods: {
     goCart () {
       this.$router.push('/cart')
+    },
+    goLogin () {
+      this.$router.push('/login')
+    }
+  },
+  data () {
+    return {
+      isLogin: window.localStorage.getItem('isLogin')
     }
   }
 }
