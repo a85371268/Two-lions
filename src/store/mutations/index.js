@@ -9,8 +9,11 @@ export default {
         return item
       })
     } else {
-      action.count = 1
-      newCart.push(action)
+      // action.count = 1
+      newCart.push({
+        ...action,
+        count: 1
+      })
     }
     state.cart = newCart
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
@@ -55,18 +58,11 @@ export default {
     })
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   },
-  allChecked (state) {
-    if (state.cart.some(item => item.isChecked === false)) {
-      state.cart = state.cart.map(item => {
-        item.isChecked = true
-        return item
-      })
-    } else {
-      state.cart = state.cart.map(item => {
-        item.isChecked = !item.isChecked
-        return item
-      })
-    }
+  allChecked (state, e) {
+    state.cart = state.cart.map(item => {
+      item.isChecked = e.target.checked
+      return item
+    })
 
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   }
