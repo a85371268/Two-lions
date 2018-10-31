@@ -93,7 +93,6 @@ import ListTitle from '@/components/Home/HomeListTitle'
 import HomeRankings from '@/components/Home/HomeRankings'
 import ClassifyItem from '@/components/Home/HomeClassifyItem'
 import ListClassifyItem from '@/components/List/Item'
-// import { getHomeData } from '@/axios'
 
 export default {
   name: 'home',
