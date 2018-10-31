@@ -45,5 +45,29 @@ export default {
   clearHistory (state) {
     state.historys = []
     window.localStorage.removeItem('tl-history')
+  },
+  changeChecked (state, id) {
+    state.cart = state.cart.map(item => {
+      if (item.id === id) {
+        item.isChecked = !item.isChecked
+      }
+      return item
+    })
+    window.localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+  allChecked (state) {
+    if (state.cart.some(item => item.isChecked === false)) {
+      state.cart = state.cart.map(item => {
+        item.isChecked = true
+        return item
+      })
+    } else {
+      state.cart = state.cart.map(item => {
+        item.isChecked = !item.isChecked
+        return item
+      })
+    }
+
+    window.localStorage.setItem('cart', JSON.stringify(state.cart))
   }
 }

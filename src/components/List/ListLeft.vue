@@ -5,7 +5,7 @@
     v-for="item in kindsList"
     :key="item.id"
     @click="gitsubItem(item.id)"
-    :class="newId===item.id?'atcive':''">{{item.name}}</li>
+    :class="newId===item.id?'active':''">{{item.name}}</li>
   </ul>
 </div>
 </template>
@@ -50,7 +50,7 @@ export default {
       color:#666;
       text-align: center;
     }
-    .atcive{
+    .active{
       color:#f8e372;
     }
   }
