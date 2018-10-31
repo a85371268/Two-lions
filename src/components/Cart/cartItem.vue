@@ -7,7 +7,7 @@
       <div class="tl-cart-cartitem-price">
         <span>￥{{item.price}}</span>
         <div class="tl-cart-cartitem-count">
-          <span @click="reduceCount(item.id)">-</span>
+          <span @click="reduce(item.id)">-</span>
           <span>{{item.count}}</span>
           <span @click="addCount(item.id)">+</span>
         </div>
@@ -27,6 +27,27 @@ export default {
     CheckBox
   },
   methods: {
+    reduce () {
+      if (this.item.count === 1) {
+        this.$messagebox.confirm('你确定要删除此商品吗?').then(action => {
+          this.reduceCount(this.item.id)
+          this.$toast({
+            message: '成功删除改商品！',
+            iconClass: 'icon iconfont icon-chenggong',
+            duration: 800
+          })
+        }).catch(err => {
+          err = '取消了'
+          this.$toast({
+            message: err,
+            iconClass: 'icon iconfont icon-shibai',
+            duration: 800
+          })
+        })
+      } else {
+        this.reduceCount(this.item.id)
+      }
+    },
     ...mapMutations(['reduceCount', 'addCount'])
   }
 }

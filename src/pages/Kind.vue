@@ -41,7 +41,6 @@ export default {
         this.categorieName = newArr[0].categorieName
       } else {
         this.$http.getItem(id).then(resp => {
-          console.log(resp)
           this.categories = resp.categories
           this.categorieName = resp.category.name
           this.cacheData.push({id: id, data: resp.categories, categorieName: resp.category.name})
