@@ -40,10 +40,11 @@ export default {
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   },
   addHistory (state, word) {
-    if (!state.historys.includes(word)) {
-      state.historys.unshift(word)
-      window.localStorage.setItem('tl-history', state.historys.join(','))
+    if (state.historys.includes(word)) {
+      state.historys.splice(state.historys.indexOf(word), 1)
     }
+    state.historys.unshift(word)
+    window.localStorage.setItem('tl-history', state.historys.join(','))
   },
   clearHistory (state) {
     state.historys = []

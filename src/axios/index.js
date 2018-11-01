@@ -33,14 +33,14 @@ export const getHomeTabbar = () => {
 export const getHomeMore = (id) => {
   return ajax.get(`/api/tab/1/feeds?start=${id}`)
 }
-export const getList = (id, sort) => {
-  return ajax.get(`/api/category/${id}/items?start=0&sort=${sort}`)
+export const getList = (id, pageIndex, sort) => {
+  return ajax.get(`/api/category/${id}/items?start=${pageIndex}&sort=${sort}`)
 }
 export const getDetail = (id) => {
   return ajax.get(`/api/detail?id=${id}&normal=1&sa=`)
 }
-export const getSearch = (text, sort) => {
-  return ajax.get(`/api/search?word=${text}&start=0&sort=${sort}`)
+export const getSearch = (text, pageIndex, sort) => {
+  return ajax.get(`/api/search?word=${text}&start=${pageIndex}&sort=${sort}`)
 }
 export const getHot = () => {
   return ajax.get('/api/hotWords')

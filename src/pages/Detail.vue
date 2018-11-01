@@ -137,7 +137,6 @@ export default {
         line-height: 30px;
         color:#fff;
         border-radius: 50%;
-        // background-color: #F50;
       }
       .mint-swipe{
         position: absolute;
