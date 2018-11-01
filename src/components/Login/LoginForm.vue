@@ -34,7 +34,8 @@ export default {
   data () {
     return {
       userName: '',
-      passWord: ''
+      passWord: '',
+      isOut: false
     }
   },
   computed: {
