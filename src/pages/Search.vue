@@ -3,6 +3,8 @@
     <list-header :goback="true" :isInput="true"></list-header>
     <h1><span>搜索历史</span><i class="icon iconfont icon-ziyuan" @click="clearHistory"></i></h1>
     <sarch-item></sarch-item>
+    <h1><span>热门商品</span></h1>
+    <sarch-item :isHot='true'></sarch-item>
   </div>
 </template>
 
@@ -29,7 +31,7 @@ export default {
     font-size: 12px;
     color:#555;
     padding:0 15px;
-    margin-top:15px;
+    margin-top:25px;
     display: flex;
     justify-content: space-between
   }

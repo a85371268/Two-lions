@@ -59,7 +59,7 @@ export default {
       position:absolute;
       width:12px;
       height:12px;
-      border:1px solid #ccc;
+      border:1px solid #f8e372;
       border-radius: 50%;
       top: 0;
       right: 0;
@@ -72,7 +72,7 @@ export default {
       position:absolute;
       width:10px;
       height:10px;
-      background-color: #ccc;
+      background-color: #f8e372;
       border-radius: 50%;
       top: 0;
       right: 0;
