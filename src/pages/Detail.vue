@@ -122,7 +122,11 @@ export default {
     flex:1;
     overflow-y: auto;
     .tl-detail-slider{
+      // width:100%;
+      // height:100%;
+      // height:calc(100% - 214px);
       height:400px;
+      // padding-top:50%;
       position: relative;
       .back{
         position: absolute;
@@ -136,7 +140,6 @@ export default {
         line-height: 30px;
         color:#fff;
         border-radius: 50%;
-        // background-color: #F50;
       }
     }
     .tl-detail-info{

@@ -67,7 +67,7 @@ export default {
   },
   changeCurrentId (state, id) {
     state.currentId = id
-},
+  },
   changeName (state, newName) {
     state.loginName = newName
   }
