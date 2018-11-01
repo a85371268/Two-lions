@@ -124,9 +124,6 @@ export default {
       data: []
     }
   },
-  updated () {
-    console.log(this.selected)
-  },
   mounted () {
     this.$http.default.axios.all([
       this.$http.getHomeTabbar(),
@@ -162,11 +159,7 @@ export default {
           this.showClassify = false
         })
     },
-    loadHooo () {
-      console.log(123)
-    },
     loadMore () {
-      console.log(456)
       this.loading = true
       // 此处请求下一组数据
       setTimeout(() => {
