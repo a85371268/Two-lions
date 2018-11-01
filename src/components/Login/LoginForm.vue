@@ -5,8 +5,8 @@
         <i class="iconfont icon-yonghuming-login"></i>
         <input type="text" placeholder="请输入用户名" v-model="userName">
         <div class="prompt">
-          <i class="iconfont icon-true-login true" v-show="userName.length>8"></i>
-          <i class="iconfont icon-false-login false" v-show="userName.length>0&&userName.length<=8"></i>
+          <i class="iconfont icon-true-login true" v-show="userName.length>2&&userName.length<=6"></i>
+          <i class="iconfont icon-false-login false" v-show="userName.length>0&&userName.length<=2||userName.length>6"></i>
         </div>
       </label>
       <label>
@@ -20,8 +20,8 @@
       <mt-button
         type="primary"
         @click="showMsg"
-        :class="userName.length>8&&passWord.length>6?'login-btn':'login-btn active'"
-        :disabled="userName.length>8&&passWord.length>6?false:true"
+        :class="userName.length>2&&userName.length<=6&&passWord.length>6?'login-btn':'login-btn active'"
+        :disabled="userName.length>2&&userName.length<=6&&passWord.length>6?false:true"
       >快速登录/注册</mt-button>
     </form>
   </div>
@@ -38,7 +38,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['loginName'])
+    ...mapState(['loginName', 'backUrl'])
   },
   methods: {
     ...mapMutations(['changeName']),
@@ -53,7 +53,11 @@ export default {
       this.changeName(this.userName)
       setTimeout(() => {
         // 1.5s之后跳转到之前的界面
-        this.$router.back()
+        if (this.backUrl !== '') {
+          this.$router.push(this.backUrl)
+        } else {
+          this.$router.back()
+        }
       }, 1500)
     },
     onSubmit () {

@@ -21,7 +21,7 @@ export default {
   name: 'mineBgbox',
   methods: {
     goLogin () {
-      this.$router.push('/login')
+      this.$router.push({path: '/login', query: {tUrl: '/mine'}})
     },
     goLogout () {
       this.$messagebox.confirm(`确定退出登录么？`, '退出登录')
@@ -97,7 +97,9 @@ export default {
         border-radius: 50%;
       }
       >p{
-        font-size: 13px;
+        transform: translateX(-34%);
+        width: 300%;
+        font-size: 15px;
         text-align: center;
         margin-top: 5px;
         color: #666;

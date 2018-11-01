@@ -11,6 +11,7 @@
 import LoginLogo from '@/components/Login/LoginLogo'
 import LoginForm from '@/components/Login/LoginForm'
 import LoginOther from '@/components/Login/LoginOther'
+import {mapMutations} from 'vuex'
 export default {
   name: 'login',
   components: {
@@ -21,7 +22,12 @@ export default {
   methods: {
     goBack () {
       this.$router.back()
-    }
+    },
+    ...mapMutations(['changeBackUrl'])
+  },
+  mounted () {
+    // 获取url存到vuex中
+    this.changeBackUrl(this.$router.history.current.query.tUrl)
   }
 }
 </script>

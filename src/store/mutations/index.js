@@ -67,8 +67,14 @@ export default {
   },
   changeCurrentId (state, id) {
     state.currentId = id
-},
+  },
   changeName (state, newName) {
     state.loginName = newName
+  },
+  changeHomeId (state, id) {
+    state.homeId = id
+  },
+  changeBackUrl (state, url) {
+    state.backUrl = url
   }
 }

@@ -22,7 +22,7 @@ export default {
       this.$router.push('/cart')
     },
     goLogin () {
-      this.$router.push('/login')
+      this.$router.push({path: '/login', query: {tUrl: '/mine'}})
     }
   },
   data () {
