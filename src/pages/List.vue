@@ -2,7 +2,7 @@
   <div class="tl-list-body body">
     <list-header :goback="true"></list-header>
     <list-nav @sortList="sortList" :status="status"></list-nav>
-    <div class="tl-list-main">
+    <div class="tl-list-main" @scroll="loading">
       <list-item v-for="item in itemList" :key='item.id' :item="item"></list-item>
     </div>
   </div>
@@ -25,6 +25,8 @@ export default {
       categories: [],
       itemList: [],
       status: 0,
+      sort: 0,
+      pageIndex: 40,
       isList: this.$route.query.word
     }
   },
@@ -35,21 +37,41 @@ export default {
       }).catch(err => console.error(err))
     },
     sortList (sort) {
+      this.sort = sort
+      this.itemList = []
       if (this.isList) {
-        this.getSearch(sort)
+        this.getSearch()
       } else {
-        this.getList(sort)
+        this.getList()
       }
     },
-    getSearch (sort) {
-      this.$http.getSearch(this.$route.query.word, sort).then(resp => {
-        this.itemList = resp.list
+    getSearch () {
+      this.$http.getSearch(this.$route.query.word, this.pageIndex, this.sort).then(resp => {
+        resp.list.map(item => {
+          this.itemList.push(item)
+          return item
+        })
       }).catch(err => console.error(err))
     },
-    getList (sort) {
-      this.$http.getList(this.$route.params.id, sort).then(resp => {
-        this.itemList = resp.items.list
+    getList () {
+      this.$http.getList(this.$route.params.id, this.pageIndex, this.sort).then(resp => {
+        resp.items.list.map(item => {
+          this.itemList.push(item)
+          return item
+        })
       }).catch(err => console.error(err))
+    },
+    loading (e) {
+      if (parseInt(e.target.scrollTop) - (e.target.scrollHeight - e.target.offsetHeight) > -2) {
+        this.pageIndex += 40
+        if (this.pageIndex < 120) {
+          if (this.isList) {
+            this.getSearch()
+          } else {
+            this.getList()
+          }
+        }
+      }
     }
   },
   mounted () {
