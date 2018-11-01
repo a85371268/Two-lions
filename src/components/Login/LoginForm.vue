@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'loginForm',
   data () {
@@ -36,17 +37,22 @@ export default {
       passWord: ''
     }
   },
+  computed: {
+    ...mapState(['loginName'])
+  },
   methods: {
+    ...mapMutations(['changeName']),
     showMsg () {
       this.$toast({
-        message: '操作成功',
+        message: '登录成功',
         iconClass: 'iconfont icon-succ-login',
         duration: 1500
       })
-      // 把用户名存在localstorage中
+      // 把用户名存到localstorage和vuex中
+      window.localStorage.setItem('isLogin', this.userName)
+      this.changeName(this.userName)
       setTimeout(() => {
-        console.log(123)
-        window.localStorage.setItem('isLogin', this.userName)
+        // 1.5s之后跳转到之前的界面
         this.$router.back()
       }, 1500)
     },

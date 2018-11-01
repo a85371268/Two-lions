@@ -4,7 +4,7 @@
       tag="li"
       v-for="route in routes"
       :key='route.path'
-      :to='route.path'
+      :to="route.path"
     >
       <div>
         <i
@@ -20,7 +20,7 @@
 <script>
 import routes from '@/router/routes'
 import Badge from '@/components/base/badge'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'tabbar',
   components: {
@@ -32,7 +32,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['allCount'])
+    ...mapGetters(['allCount']),
+    ...mapState(['loginName'])
   }
 }
 </script>

@@ -34,6 +34,7 @@ const routes = [
     name: 'cart',
     component: Cart,
     text: '购物车',
+    meta: {auth: true},
     isTabbar: true
   }, {
     path: '/mine',
