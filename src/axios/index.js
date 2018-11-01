@@ -30,8 +30,8 @@ export const getHomeData = (id) => {
 export const getHomeTabbar = () => {
   return ajax.get(`/api/tabs?sa=`)
 }
-export const getHomeMore = (id) => {
-  return ajax.get(`/api/tab/1/feeds?start=${id}`)
+export const getHomeMore = (id, page) => {
+  return ajax.get(`/api/tab/${id}/feeds?start=${page}`)
 }
 export const getList = (id, pageIndex, sort) => {
   return ajax.get(`/api/category/${id}/items?start=${pageIndex}&sort=${sort}`)

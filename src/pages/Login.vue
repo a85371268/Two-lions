@@ -1,5 +1,5 @@
 <template>
-  <div class="tl-login">
+  <div :class="isOut?`tl-login fadeOutDownBig animated`:`tl-login fadeInUpBig animated`">
     <i class="iconfont icon-close-login tl-login-back" @click="goBack"></i>
     <login-logo></login-logo>
     <login-form></login-form>
@@ -19,9 +19,17 @@ export default {
     LoginForm,
     LoginOther
   },
+  data () {
+    return {
+      isOut: false
+    }
+  },
   methods: {
     goBack () {
-      this.$router.back()
+      this.isOut = true
+      setTimeout(() => {
+        this.$router.back()
+      }, 400)
     },
     ...mapMutations(['changeBackUrl'])
   },
@@ -45,4 +53,40 @@ export default {
       color: #666;
     }
   }
+
+@keyframes fadeInUpBig {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInUpBig {
+  animation-name: fadeInUpBig;
+}
+
+.animated {
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+}
+@keyframes fadeOutDownBig {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 2000px, 0);
+  }
+}
+
+.fadeOutDownBig {
+  animation-name: fadeOutDownBig;
+}
 </style>

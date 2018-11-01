@@ -39,9 +39,6 @@
             <list-title>{{note}}</list-title>
             <div
               class="list-wrapper">
-              <!-- v-infinite-scroll="loadMore"
-              infinite-scroll-disabled="loading"
-              infinite-scroll-distance="10" -->
               <product-list
                 v-for="item in list"
                 :key="item.id"
@@ -49,18 +46,10 @@
                 v-if="item.type===1"
               ></product-list>
             </div>
-            <div v-show="this.loading" class="load-more">努力加载中…</div>
+            <mt-button plain class="load-more" v-if="this.isEnd">已经是最后一页啦Σ(*ﾟдﾟﾉ)ﾉ</mt-button>
+            <mt-button plain class="load-more" v-else @click="loadMore">点击加载更多Σ(*ﾟдﾟﾉ)ﾉ</mt-button>
           </div>
         </div>
-        <!-- <mt-tab-container-item id="4">
-          <mt-cell v-for="n in 6" :key="n" :title="'选项 ' + n" />
-        </mt-tab-container-item>
-        <mt-tab-container-item id="3">
-          <mt-cell v-for="n in 30" :key="n" :title="'护理 ' + n" />
-        </mt-tab-container-item>
-        <mt-tab-container-item id="5">
-          <mt-cell v-for="n in 6" :key="n" :title="'周边 ' + n" />
-        </mt-tab-container-item> -->
       </div>
       <div class="classify-pages" v-else>
         <div class="classify-wrapper">
@@ -79,6 +68,8 @@
             :item="item"
           ></product-list>
         </div>
+        <mt-button plain class="load-more" v-if="this.isEnd">已经是最后一页啦Σ(*ﾟдﾟﾉ)ﾉ</mt-button>
+        <mt-button plain class="load-more" v-else @click="loadMore">点击加载更多Σ(*ﾟдﾟﾉ)ﾉ</mt-button>
       </div>
     </div>
   </div>
@@ -86,13 +77,15 @@
 
 <script>
 import HomeHeader from '../components/List/ListHeader'
-import Swipper from '@/components/Home/HomeSwipper'
-import HomeGrids from '@/components/Home/HomeGrids'
 import ProductList from '@/components/List/ListItem'
-import ListTitle from '@/components/Home/HomeListTitle'
-import HomeRankings from '@/components/Home/HomeRankings'
-import ClassifyItem from '@/components/Home/HomeClassifyItem'
 import ListClassifyItem from '@/components/List/Item'
+import {
+  Swipper,
+  HomeGrids,
+  ListTitle,
+  HomeRankings,
+  ClassifyItem
+} from '@/components/Home'
 import {mapMutations, mapState} from 'vuex'
 
 export default {
@@ -117,7 +110,6 @@ export default {
       note: '',
       nextIndex: 0,
       isEnd: false,
-      loading: false,
       categories: [],
       classfiyTabs: [],
       showClassify: false,
@@ -142,6 +134,8 @@ export default {
   methods: {
     ...mapMutations(['changeHomeId']),
     goClassify (id) {
+      this.nextIndex = 0
+      this.isEnd = false
       this.changeHomeId(id)
       this.$http.getHomeData(id)
         .then(resp => {
@@ -150,6 +144,7 @@ export default {
           this.rankings = resp.topList
           this.categories = resp.categories
           this.list = resp.items.list
+          this.note = resp.note
         })
         .catch(err => {
           console.log(err)
@@ -159,21 +154,17 @@ export default {
         })
     },
     loadMore () {
-      this.loading = true
       // 此处请求下一组数据
-      setTimeout(() => {
-        this.$http.getHomeMore(this.nextIndex)
-          .then(resp => {
-            this.nextIndex = resp.nextIndex
-            this.isEnd = resp.isEnd
-            const newList = this.list.concat(resp.list)
-            this.list = newList
-          })
-          .catch(err => {
-            console.log(err)
-          })
-          .finally(() => { this.loading = false })
-      }, 600)
+      this.nextIndex += 30
+      this.$http.getHomeMore(this.homeId, this.nextIndex)
+        .then(resp => {
+          this.isEnd = resp.isEnd
+          const newList = this.list.concat(resp.list)
+          this.list = newList
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   computed: {
@@ -259,10 +250,10 @@ export default {
           justify-content: space-between;
         }
         .load-more{
-          text-align: center;
-          line-height: 30px;
-          height: 30px;
-          color: #ed908e;
+          width: 100%;
+          background: #f8e372;
+          opacity: .8;
+          border: 0
         }
       }
       .classify-pages{
@@ -273,12 +264,18 @@ export default {
           justify-content: space-between;
           background: white;
           margin-bottom: 20px;
-          border-bottom: 1px solid #999;
+          box-shadow: 0px 3px 15px -1px #bebebe;
         }
         .list-wrapper{
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
+        }
+        .load-more{
+          width: 100%;
+          background: #f8e372;
+          opacity: .8;
+          border: 0
         }
       }
     }
