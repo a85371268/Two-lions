@@ -122,11 +122,7 @@ export default {
     flex:1;
     overflow-y: auto;
     .tl-detail-slider{
-      // width:100%;
-      // height:100%;
-      // height:calc(100% - 214px);
       height:400px;
-      // padding-top:50%;
       position: relative;
       .back{
         position: absolute;
