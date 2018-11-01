@@ -3,7 +3,7 @@
     <li v-for="history in historys" :key="history" @click="goList(history)">{{history}}</li>
   </ul>
   <ul v-else>
-    <li v-for="hot in hotList" :key="hot">{{hot}}</li>
+    <li v-for="hot in hotList" :key="hot" @click="goList(hot)">{{hot}}</li>
   </ul>
 </template>
 
