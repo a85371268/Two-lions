@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { getHot } from '@/axios'
 
 export default {
@@ -28,7 +28,9 @@ export default {
     }).catch(err => console.error(err))
   },
   methods: {
+    ...mapMutations(['addHistory']),
     goList (word) {
+      this.addHistory(word)
       this.$router.push(`/list/1?word=${word}`)
     }
   }

@@ -12,6 +12,7 @@
 import ListHeader from '../components/List/ListHeader'
 import ListLeft from '../components/List/ListLeft'
 import ListRight from '../components/List/ListRight'
+import { mapState } from 'vuex'
 
 export default {
   name: 'kind',
@@ -27,12 +28,15 @@ export default {
       cacheData: window.localStorage.getItem('tl-cachData') ? JSON.parse(window.localStorage.getItem('tl-cachData')) : []
     }
   },
+  computed: {
+    ...mapState(['currentId'])
+  },
   mounted () {
-    this.geData(2)
+    this.geData(this.currentId)
   },
   methods: {
-    gitsubItem (id) {
-      this.geData(id)
+    gitsubItem () {
+      this.geData(this.currentId)
     },
     geData (id) {
       if (this.cacheData.some(item => id === item.id)) {
@@ -40,7 +44,7 @@ export default {
         this.categories = newArr[0].data
         this.categorieName = newArr[0].categorieName
       } else {
-        this.$http.getItem(id).then(resp => {
+        this.$http.getItem(this.currentId).then(resp => {
           this.categories = resp.categories
           this.categorieName = resp.category.name
           this.cacheData.push({id: id, data: resp.categories, categorieName: resp.category.name})

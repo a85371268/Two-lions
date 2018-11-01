@@ -65,6 +65,9 @@ export default {
     })
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
   },
+  changeCurrentId (state, id) {
+    state.currentId = id
+},
   changeName (state, newName) {
     state.loginName = newName
   }
