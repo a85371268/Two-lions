@@ -9,7 +9,7 @@
               v-for="item in tabs"
               :key="item.id"
               @click="goClassify(item.id)"
-              :class="selected===item.id?'active':''"
+              :class="homeId===item.id?'active':''"
             >{{item.name}}</li>
           </ul>
         </div>
@@ -21,7 +21,7 @@
             :key="item.id"
             :tabs="item"
             @set-id="goClassify"
-            :class="selected===item.id?'active':''"
+            :class="homeId===item.id?'active':''"
           ></classify-item>
         </div>
       </div>
@@ -29,7 +29,7 @@
 
     <!-- tab-container -->
     <div class="tl-home-body-main">
-      <div v-if="selected===1">
+      <div v-if="this.homeId===1">
         <!--今日推荐-->
         <div class="home-page">
           <swipper :banners="banners" />
@@ -68,7 +68,7 @@
             v-for="item in categories"
             :key="item.id"
             :categorie="item"
-            v-model="selected"
+            v-model="homeId"
           ></list-classify-item>
         </div>
         <div
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import HomeHeader from '../components/Home/HomeHeader'
+import HomeHeader from '../components/List/ListHeader'
 import Swipper from '@/components/Home/HomeSwipper'
 import HomeGrids from '@/components/Home/HomeGrids'
 import ProductList from '@/components/List/ListItem'
@@ -93,6 +93,7 @@ import ListTitle from '@/components/Home/HomeListTitle'
 import HomeRankings from '@/components/Home/HomeRankings'
 import ClassifyItem from '@/components/Home/HomeClassifyItem'
 import ListClassifyItem from '@/components/List/Item'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   name: 'home',
@@ -108,7 +109,6 @@ export default {
   },
   data () {
     return {
-      selected: 1,
       tabs: [],
       banners: [],
       grids: [],
@@ -127,28 +127,27 @@ export default {
   mounted () {
     this.$http.default.axios.all([
       this.$http.getHomeTabbar(),
-      this.$http.getHomeData(this.selected)
+      this.$http.getHomeData(this.homeId)
     ]).then(this.$http.default.axios.spread((userResp, reposResp) => {
-      const userData = userResp
-      const reposData = reposResp
-      this.tabs = userData.list
-      this.banners = reposData.banners
-      this.grids = reposData.gridsV2
-      this.rankings = reposData.topList
-      this.note = reposData.note
-      this.classfiyTabs = userData.list.filter(item => item.name !== '今日推荐')
-      this.categories = reposData.categories
-      this.list = reposData.items.list
+      this.tabs = userResp.list
+      this.banners = reposResp.banners
+      this.grids = reposResp.gridsV2
+      this.rankings = reposResp.topList
+      this.note = reposResp.note
+      this.classfiyTabs = userResp.list.filter(item => item.name !== '今日推荐')
+      this.categories = reposResp.categories
+      this.list = reposResp.items.list
     }))
   },
   methods: {
-    setSelected (id) {
-      this.selected = id
-    },
+    ...mapMutations(['changeHomeId']),
     goClassify (id) {
-      this.selected = id
+      this.changeHomeId(id)
       this.$http.getHomeData(id)
         .then(resp => {
+          this.banners = resp.banners
+          this.grids = resp.gridsV2
+          this.rankings = resp.topList
           this.categories = resp.categories
           this.list = resp.items.list
         })
@@ -176,6 +175,9 @@ export default {
           .finally(() => { this.loading = false })
       }, 600)
     }
+  },
+  computed: {
+    ...mapState(['homeId'])
   }
 }
 </script>
