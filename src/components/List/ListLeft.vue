@@ -5,21 +5,24 @@
     v-for="item in kindsList"
     :key="item.id"
     @click="gitsubItem(item.id)"
-    :class="newId===item.id?'active':''">{{item.name}}</li>
+    :class="currentId===item.id?'active':''">{{item.name}}</li>
   </ul>
 </div>
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
 import { getKindList } from '@/axios'
 
 export default {
   name: 'ListLeft',
   data () {
     return {
-      kindsList: [],
-      newId: 2
+      kindsList: []
     }
+  },
+  computed: {
+    ...mapState(['currentId'])
   },
   mounted () {
     getKindList().then(resp => {
@@ -27,9 +30,10 @@ export default {
     })
   },
   methods: {
+    ...mapMutations(['changeCurrentId']),
     gitsubItem (id) {
+      this.changeCurrentId(id)
       this.$emit('gitsubItem', id)
-      this.newId = id
     }
   }
 }

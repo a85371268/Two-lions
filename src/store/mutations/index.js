@@ -64,5 +64,8 @@ export default {
       return item
     })
     window.localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+  changeCurrentId (state, id) {
+    state.currentId = id
   }
 }
