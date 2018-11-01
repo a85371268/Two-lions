@@ -1,16 +1,31 @@
 <template>
-  <ul>
+  <ul v-if='!isHot'>
     <li v-for="history in historys" :key="history" @click="goList(history)">{{history}}</li>
+  </ul>
+  <ul v-else>
+    <li v-for="hot in hotList" :key="hot" @click="goList(hot)">{{hot}}</li>
   </ul>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { getHot } from '@/axios'
 
 export default {
   name: 'searchItem',
+  props: ['isHot'],
+  data () {
+    return {
+      hotList: []
+    }
+  },
   computed: {
     ...mapState(['historys'])
+  },
+  created () {
+    getHot().then(resp => {
+      this.hotList = resp
+    }).catch(err => console.error(err))
   },
   methods: {
     goList (word) {
@@ -33,6 +48,7 @@ ul{
     font-size: 12px;
     color:#666;
     border-bottom:1px solid #dfdfdf;
+    margin-top: 15px;
   }
 }
 

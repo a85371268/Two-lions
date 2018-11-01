@@ -41,7 +41,7 @@ export default {
   },
   addHistory (state, word) {
     if (!state.historys.includes(word)) {
-      state.historys.push(word)
+      state.historys.unshift(word)
       window.localStorage.setItem('tl-history', state.historys.join(','))
     }
   },
