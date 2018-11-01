@@ -5,7 +5,7 @@
         <div class="back" @click="goBack">
           <i class="icon iconfont icon-fanhui"></i>
         </div>
-        <mt-swipe :auto="4000">
+        <mt-swipe :auto="999999">
           <mt-swipe-item v-for="slider in sliderList" :key="slider.id">
             <img :src="slider.url" style="width:100%">
           </mt-swipe-item>
@@ -122,7 +122,8 @@ export default {
     flex:1;
     overflow-y: auto;
     .tl-detail-slider{
-      height:400px;
+      height:0;
+      padding-top: 100%;
       position: relative;
       .back{
         position: absolute;
@@ -137,6 +138,13 @@ export default {
         color:#fff;
         border-radius: 50%;
         // background-color: #F50;
+      }
+      .mint-swipe{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
       }
     }
     .tl-detail-info{
