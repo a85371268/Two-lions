@@ -54,15 +54,16 @@ export default {
       this.changeName(this.userName)
       console.log(this.$http)
       this.$http.getKindList().then(resp => {
-        console.log(resp)
-        // setTimeout(() => {
-        // // 1.5s之后跳转到之前的界面
-        //   if (this.backUrl !== '') {
-        //     this.$router.push(this.backUrl)
-        //   } else {
-        //     this.$router.back()
-        //   }
-        // }, 1500)
+        // 存touken
+        window.localStorage.setItem('token', resp.token)
+        setTimeout(() => {
+        // 1.5s之后跳转到之前的界面
+          if (this.backUrl !== '') {
+            this.$router.push(this.backUrl)
+          } else {
+            this.$router.back()
+          }
+        }, 1500)
       }).catch(err => console.error(err))
     },
     onSubmit () {
