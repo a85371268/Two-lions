@@ -41,6 +41,9 @@
           </div>
         </div>
       </div>
+      <div class="tl-detail-img">
+        <img v-for="img in tbItemUrl" :key='img.id' :src="img.image.url" alt="">
+      </div>
     </div>
     <div class="tl-detail-btn">
       <div class="tl-detail-btn-cart">
@@ -69,6 +72,7 @@ export default {
       serviceScore: '',
       itemScore: '',
       deliveryScore: '',
+      tbItemUrl: '',
       proInfo: {
         id: this.$route.params.id,
         title: '',
@@ -98,6 +102,7 @@ export default {
       this.serviceScore = data.shop.serviceScore
       this.itemScore = data.shop.itemScore
       this.deliveryScore = data.shop.deliveryScore
+      this.tbItemUrl = data.descContentList
     }).catch(err => {
       console.log(err)
     })
@@ -217,6 +222,12 @@ export default {
             margin-right:10px;
           }
         }
+      }
+    }
+    .tl-detail-img{
+      width:100%;
+      img{
+        width:100%
       }
     }
   }
