@@ -52,14 +52,18 @@ export default {
       // 把用户名存到localstorage和vuex中
       window.localStorage.setItem('isLogin', this.userName)
       this.changeName(this.userName)
-      setTimeout(() => {
-        // 1.5s之后跳转到之前的界面
-        if (this.backUrl !== '') {
-          this.$router.push(this.backUrl)
-        } else {
-          this.$router.back()
-        }
-      }, 1500)
+      console.log(this.$http)
+      this.$http.getKindList().then(resp => {
+        console.log(resp)
+        // setTimeout(() => {
+        // // 1.5s之后跳转到之前的界面
+        //   if (this.backUrl !== '') {
+        //     this.$router.push(this.backUrl)
+        //   } else {
+        //     this.$router.back()
+        //   }
+        // }, 1500)
+      }).catch(err => console.error(err))
     },
     onSubmit () {
       return false
