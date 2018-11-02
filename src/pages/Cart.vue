@@ -4,12 +4,18 @@
       <mt-header title="购物车">
       </mt-header>
     </div>
-    <div class="tl-cart-main">
+    <div class="tl-cart-main" v-if="cart.length>0">
       <cart-item
       v-for="item in cart"
       :key="item.id"
       :item="item"
       ></cart-item>
+    </div>
+    <div class="tl-cart-main" v-else>
+        <div class="tl-cart-null">
+          <i class="icon iconfont icon-cart-mine" @click="goToList"></i>
+          点击请选择加入购物车
+        </div>
     </div>
     <div class="tl-cart-btn">
       <check-box title="全选"></check-box>
@@ -32,6 +38,11 @@ export default {
   computed: {
     ...mapState(['cart']),
     ...mapGetters(['allPrice'])
+  },
+  methods: {
+    goToList () {
+      this.$router.push('/kind')
+    }
   }
 }
 </script>
@@ -49,6 +60,20 @@ export default {
   .tl-cart-main{
     flex:1;
     overflow-y: auto;
+    background-color: #fff;
+    .tl-cart-null{
+      height:100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      color:#666;
+      i{
+        font-size: 30px;
+        color:#f8e372;
+      }
+    }
   }
   .tl-cart-btn{
     height:40px;
