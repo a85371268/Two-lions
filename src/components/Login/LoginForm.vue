@@ -52,7 +52,6 @@ export default {
       // 把用户名存到localstorage和vuex中
       window.localStorage.setItem('isLogin', this.userName)
       this.changeName(this.userName)
-      console.log(this.$http)
       this.$http.getKindList().then(resp => {
         // 存touken
         window.localStorage.setItem('token', resp.token)

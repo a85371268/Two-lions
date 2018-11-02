@@ -6,7 +6,8 @@ import {
   Mine,
   Login,
   List,
-  Search
+  Search,
+  Browse
 } from '@/pages'
 
 const routes = [
@@ -54,6 +55,11 @@ const routes = [
     path: '/search',
     name: 'search',
     component: Search
+  },
+  {
+    path: '/browse',
+    name: 'browse',
+    component: Browse
   }
 ]
 

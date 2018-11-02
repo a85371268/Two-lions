@@ -3,6 +3,10 @@
     <i :class="`iconfont icon-${msg.icon}-mine`"></i>
     <span>{{msg.text}}</span>
   </div>
+  <div class="links-item" v-else-if="msg.icon==='eye'" @click="goBrowse">
+    <i :class="`iconfont icon-${msg.icon}-mine`"></i>
+    <span>{{msg.text}}</span>
+  </div>
   <div class="links-item" v-else-if="isLogin">
     <i :class="`iconfont icon-${msg.icon}-mine`"></i>
     <span>{{msg.text}}</span>
@@ -23,6 +27,9 @@ export default {
     },
     goLogin () {
       this.$router.push({path: '/login', query: {tUrl: '/mine'}})
+    },
+    goBrowse () {
+      this.$router.push({path: '/browse'})
     }
   },
   data () {

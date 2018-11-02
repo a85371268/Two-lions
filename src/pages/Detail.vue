@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapState } from 'vuex'
 import Badge from '@/components/base/badge'
 
 export default {
@@ -82,7 +82,8 @@ export default {
     Badge
   },
   computed: {
-    ...mapGetters(['allCount'])
+    ...mapGetters(['allCount']),
+    ...mapState(['browseId'])
   },
   mounted () {
     this.$http.getDetail(this.$route.params.id).then(resp => {
@@ -98,6 +99,26 @@ export default {
       this.serviceScore = data.shop.serviceScore
       this.itemScore = data.shop.itemScore
       this.deliveryScore = data.shop.deliveryScore
+      // 判断之前有没有这个id
+      this.browseId.forEach((item, index) => {
+        if (item.id === this.proInfo.id) {
+          this.splBrowseId(index)
+        }
+      })
+      if (this.browseId.length >= 10) {
+        this.delBrowseId()
+      }
+      this.addBrowseId(
+        {
+          id: this.proInfo.id,
+          price: this.proInfo.price,
+          image: this.proInfo.img,
+          title: this.proInfo.title,
+          saleNum: this.saleNum
+        }
+      )
+      console.log(this.browseId)
+      window.localStorage.setItem('browse', JSON.stringify(this.browseId))
     }).catch(err => {
       console.log(err)
     })
@@ -109,7 +130,7 @@ export default {
     goCart () {
       this.$router.push('/cart')
     },
-    ...mapMutations(['addCart'])
+    ...mapMutations(['addCart', 'addBrowseId', 'splBrowseId', 'delBrowseId'])
   }
 }
 </script>
