@@ -41,8 +41,8 @@
           </div>
         </div>
       </div>
-      <div class="tl-detail-img">
-        <img v-for="img in tbItemUrl" :key='img.id' :src="img.image.url" alt="">
+      <div class="tl-detail-img" v-for="img in tbItemUrl" :key='img.id'>
+          <img v-if="img.image.url" :src="img.image.url" alt="">
       </div>
     </div>
     <div class="tl-detail-btn">
@@ -103,7 +103,13 @@ export default {
       this.serviceScore = data.shop.serviceScore
       this.itemScore = data.shop.itemScore
       this.deliveryScore = data.shop.deliveryScore
-      this.tbItemUrl = data.descContentList
+      this.tbItemUrl = data.descContentList.filter(item => {
+        if (item.image) {
+          item.id = Math.random()
+          return item
+        }
+      })
+      // console.log(this.tbItemUrl)
       // 判断之前有没有这个id
       this.browseId.forEach((item, index) => {
         if (item.id === this.proInfo.id) {
