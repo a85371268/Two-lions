@@ -1,7 +1,7 @@
 <template>
   <div class="tl-list-item" @click="goDetail">
     <div class="tl-list-item-img">
-      <img :src="item.image" alt="">
+      <img :src="item.image">
     </div>
     <div class="tl-list-item-des">{{item.title}}</div>
     <div class="tl-list-item-email"><span>包邮</span></div>

@@ -77,5 +77,15 @@ export default {
   },
   changeBackUrl (state, url) {
     state.backUrl = url
+  },
+  addBrowseId (state, obj) {
+    state.browseId.unshift(obj)
+  },
+  delBrowseId (state) {
+    state.browseId.pop()
+  },
+  splBrowseId (state, index) {
+    state.browseId.splice(index, 1)
   }
+
 }

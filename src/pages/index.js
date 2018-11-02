@@ -6,6 +6,7 @@ const Mine = () => import('@/pages/Mine')
 const Login = () => import('@/pages/Login')
 const List = () => import('@/pages/List')
 const Search = () => import('@/pages/Search')
+const Browse = () => import('@/pages/Browse')
 
 export {
   Detail,
@@ -15,5 +16,6 @@ export {
   Mine,
   Login,
   List,
-  Search
+  Search,
+  Browse
 }
