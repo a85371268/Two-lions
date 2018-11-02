@@ -253,7 +253,8 @@ export default {
           width: 100%;
           background: #f8e372;
           opacity: .8;
-          border: 0
+          border: 0;
+          font-size: 13px;
         }
       }
       .classify-pages{
@@ -275,7 +276,8 @@ export default {
           width: 100%;
           background: #f8e372;
           opacity: .8;
-          border: 0
+          border: 0;
+          font-size: 13px;
         }
       }
     }
