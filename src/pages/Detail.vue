@@ -41,6 +41,9 @@
           </div>
         </div>
       </div>
+      <div class="tl-detail-img">
+        <img v-for="img in tbItemUrl" :key='img.id' :src="img.image.url" alt="">
+      </div>
     </div>
     <div class="tl-detail-btn">
       <div class="tl-detail-btn-cart">
@@ -69,6 +72,7 @@ export default {
       serviceScore: '',
       itemScore: '',
       deliveryScore: '',
+      tbItemUrl: '',
       proInfo: {
         id: this.$route.params.id,
         title: '',
@@ -99,6 +103,7 @@ export default {
       this.serviceScore = data.shop.serviceScore
       this.itemScore = data.shop.itemScore
       this.deliveryScore = data.shop.deliveryScore
+      this.tbItemUrl = data.descContentList
       // 判断之前有没有这个id
       this.browseId.forEach((item, index) => {
         if (item.id === this.proInfo.id) {
@@ -117,7 +122,6 @@ export default {
           saleNum: this.saleNum
         }
       )
-      console.log(this.browseId)
       window.localStorage.setItem('browse', JSON.stringify(this.browseId))
     }).catch(err => {
       console.log(err)
@@ -238,6 +242,12 @@ export default {
             margin-right:10px;
           }
         }
+      }
+    }
+    .tl-detail-img{
+      width:100%;
+      img{
+        width:100%
       }
     }
   }
