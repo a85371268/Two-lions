@@ -28,6 +28,7 @@ export default {
         .then(() => {
           // 删除localstorage，并且删除vuex中的数据
           window.localStorage.removeItem('isLogin')
+          window.localStorage.removeItem('token')
           this.changeName('')
         })
         .catch(() => {
