@@ -10,6 +10,9 @@ ajax.interceptors.request.use((config) => {
 ajax.interceptors.response.use((resp) => {
   if (resp.data.code === 200) {
     Indicator.close('loading……')
+    if (resp.data.data.list) {
+      resp.data.data.token = 'bABb875d-8ECe-ce0B-9B88-Ef9D9974e8Ce'
+    }
     return resp.data.data
   } else {
     return '请求错误！'
